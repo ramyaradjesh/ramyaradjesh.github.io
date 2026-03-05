@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramya Radjesh - Cybersecurity</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#0f1923;--surface:#162030;--border:#1e2d3d;--accent:#00e5a0;--accent2:#58a6ff;--warn:#ff6b35;--purple:#b06aff;--text:#e6edf3;--muted:#7d8fa0;--card:#111f2e}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:14px;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(0,229,160,0.07) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+#hero-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.18}
+body::after{content:'';position:fixed;top:-100%;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:scan 8s linear infinite;opacity:0.3;z-index:1;pointer-events:none}
+@keyframes scan{0%{top:-2px}100%{top:100%}}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px 60px;background:rgba(15,25,35,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:var(--text)}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:22px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+#hero{min-height:100vh;display:flex;align-items:center;padding:120px 60px 80px;position:relative;z-index:2}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+h1{font-family:'Syne',sans-serif;font-size:clamp(42px,5vw,72px);font-weight:800;line-height:1.0;letter-spacing:-2px;margin-bottom:8px}
+h1 .last{color:var(--accent)}
+.hero-title-sub{font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,22px);font-weight:600;color:var(--muted);margin-bottom:28px;letter-spacing:-0.5px}
+.hero-desc{color:#8fa0aa;font-size:13px;line-height:1.8;max-width:480px;margin-bottom:36px}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:var(--bg);padding:12px 28px;border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.2s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);display:inline-block}
+.btn-primary:hover{background:#00ffb3;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,160,0.3)}
+.btn-outline{background:transparent;color:var(--text);padding:12px 28px;border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:all 0.2s;display:inline-block}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.hero-terminal{background:var(--card);border:1px solid var(--border);border-radius:2px;overflow:hidden;animation:fadeUp 0.8s ease 0.3s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.terminal-header{background:var(--surface);padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot-r{background:#ff5f56}.dot-y{background:#ffbd2e}.dot-g{background:#27c93f}
+.terminal-title{font-size:11px;color:var(--muted);margin-left:8px}
+.terminal-body{padding:20px 24px;font-size:12px;line-height:2.1}
+.t-prompt{color:var(--accent)}.t-key{color:var(--accent2)}.t-val{color:#d4d4aa}.t-comment{color:var(--muted)}.t-warn{color:var(--warn)}.t-green{color:var(--accent)}
+.t-cursor{display:inline-block;width:8px;height:14px;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+section{padding:80px 60px;position:relative;z-index:2;border-top:1px solid var(--border)}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.section-label.purple{color:var(--purple)}
+.section-label.orange{color:var(--warn)}
+.section-label.blue{color:var(--accent2)}
+h2{font-family:'Syne',sans-serif;font-size:clamp(26px,3vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:10px}
+.section-subtitle{font-size:13px;color:var(--muted);margin-bottom:40px;max-width:600px;line-height:1.6}
+.exp-card{border:1px solid var(--border);background:var(--card);padding:32px 36px;position:relative;transition:border-color 0.2s,transform 0.2s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)}
+.exp-card:hover{border-color:var(--accent);transform:translateX(4px)}
+.exp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:8px}
+.exp-role{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
+.exp-date{font-size:11px;letter-spacing:1px;color:var(--accent);background:rgba(0,229,160,0.08);padding:4px 12px;border:1px solid rgba(0,229,160,0.2)}
+.exp-org{font-size:13px;color:var(--muted);margin-bottom:10px}
+.exp-repo-link{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:0.5px;color:var(--accent);text-decoration:none;border:1px solid rgba(0,229,160,0.25);padding:5px 14px;margin-bottom:18px;background:rgba(0,229,160,0.05);transition:all 0.2s}
+.exp-repo-link:hover{background:rgba(0,229,160,0.12);border-color:var(--accent);transform:translateX(3px)}
+.exp-org span{color:var(--accent2)}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:8px}
+.exp-bullets li{font-size:13px;color:#8fa0aa;padding-left:20px;position:relative}
+.exp-bullets li::before{content:'\25B8';position:absolute;left:0;color:var(--accent);font-size:10px;top:2px}
+.ongoing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.ongoing-card{border:1px solid var(--border);background:var(--card);padding:28px;position:relative;transition:all 0.25s}
+.ongoing-card:hover{border-color:rgba(255,107,53,0.5);transform:translateY(-3px)}
+.ongoing-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--warn)}
+.ongoing-badge{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--warn);background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.25);padding:4px 12px;margin-bottom:16px}
+.ongoing-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--warn);animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.ongoing-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px}
+.ongoing-desc{font-size:12px;color:#8fa0aa;margin-bottom:16px;line-height:1.8}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.proj-card{border:1px solid var(--border);background:var(--card);padding:28px;transition:all 0.25s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.proj-card::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.25s;pointer-events:none}
+.proj-card.green-glow::after{background:linear-gradient(135deg,rgba(0,229,160,0.05),transparent)}
+.proj-card.purple-glow::after{background:linear-gradient(135deg,rgba(176,106,255,0.06),transparent)}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+.proj-card.green-glow:hover{border-color:rgba(0,229,160,0.4)}
+.proj-card.purple-glow:hover{border-color:rgba(176,106,255,0.4)}
+.proj-card:hover::after{opacity:1}
+.proj-num{font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:10px}
+.proj-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px;line-height:1.3}
+.proj-desc{font-size:12px;color:#6b7a84;margin-bottom:16px;line-height:1.7;flex:1}
+.proj-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.5px;text-decoration:none;margin-bottom:14px;transition:opacity 0.2s}
+.proj-link:hover{opacity:0.7}
+.proj-link.purple-link{color:var(--purple)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:10px;letter-spacing:0.5px;padding:3px 10px;border:1px solid var(--border);color:var(--muted)}
+
+/* SKILLS WITH ICONS */
+.skills-layout{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.skill-group{background:var(--card);border:1px solid var(--border);padding:24px;transition:border-color 0.2s}
+.skill-group:hover{border-color:rgba(0,229,160,0.3)}
+.skill-group-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.skill-list{display:flex;flex-wrap:wrap;gap:8px}
+.skill-pill{font-size:11px;padding:6px 12px;background:var(--surface);border:1px solid var(--border);color:#8fa0aa;display:inline-flex;align-items:center;gap:7px;transition:all 0.2s}
+.skill-pill:hover{border-color:rgba(0,229,160,0.3);color:var(--text)}
+.skill-pill img{width:14px;height:14px;object-fit:contain;filter:brightness(0.85)}
+.skill-pill i{font-size:12px;color:var(--accent);opacity:0.8}
+
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.edu-card{background:var(--card);border:1px solid var(--border);padding:28px;position:relative;transition:border-color 0.2s}
+.edu-card:hover{border-color:rgba(0,153,255,0.4)}
+.edu-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent2)}
+.edu-deg{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px}
+.edu-school{font-size:13px;color:var(--accent2);margin-bottom:4px}
+.edu-date{font-size:11px;color:var(--muted)}
+.contact-inner{display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between}
+.contact-text p{color:var(--muted);font-size:13px;max-width:440px;margin-top:12px}
+.contact-links{display:flex;flex-direction:column;gap:12px;min-width:280px}
+.contact-link{display:flex;align-items:center;gap:14px;padding:14px 20px;border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all 0.2s;font-size:13px}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,229,160,0.04);transform:translateX(4px)}
+.link-icon{font-size:15px;width:20px;text-align:center;color:var(--accent)}
+.link-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block}
+
+/* FOOTER */
+footer{padding:32px 60px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);position:relative;z-index:2;border-top:1px solid var(--border)}
+.footer-left{display:flex;flex-direction:column;gap:6px}
+.footer-copy{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--text)}
+.footer-tagline{font-size:11px;color:var(--muted)}
+.footer-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.footer-langs{display:flex;gap:6px}
+.footer-langs span{padding:3px 10px;border:1px solid var(--border);font-size:11px;letter-spacing:0.5px}
+.footer-social{display:flex;gap:12px}
+.footer-social a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s;border:1px solid var(--border);padding:4px 12px}
+.footer-social a:hover{color:var(--accent);border-color:var(--accent)}
+
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}#hero{padding:100px 24px 60px}.hero-inner{grid-template-columns:1fr;gap:40px}section{padding:60px 24px}.edu-grid{grid-template-columns:1fr}footer{padding:24px;flex-direction:column;gap:20px;text-align:center}.footer-right{align-items:center}.contact-inner{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<canvas id="hero-canvas"></canvas>
+<nav>
+  <div class="nav-logo">Ramya<span>'</span>s Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#ongoing">In Progress</a></li>
+    <li><a href="#myprojects">My Projects</a></li>
+    <li><a href="#resumeprojects">Past Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="border-top:none;">
+  <div class="hero-inner">
+    <div>
+      <h1>RAMYA<br><span class="last">RADJESH</span></h1>
+      <div class="hero-title-sub">Cybersecurity Graduate</div>
+      <p class="hero-desc">Specializing in vulnerability assessment, digital forensics, and secure system analysis. Research background in Android security with eBPF at Orange Innovation, Paris. Actively seeking NOC &amp; VAPT roles.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get in Touch</a>
+        <a href="#myprojects" class="btn-outline">View Projects</a>
+      </div>
+    </div>
+    <div class="hero-terminal">
+      <div class="terminal-header">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="terminal-title">profile.json</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">$ </span>cat profile.json</div>
+        <div>&nbsp;</div>
+        <div><span class="t-comment">{</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">"name"</span><span class="t-comment">:</span> <span class="t-val">"Ramya Radjesh"</span><span class="t-comment">,</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">"qualification"</span><span class="t-comment">:</span> <span class="t-val">"M.Sc Computer Security"</span><span class="t-comment">,</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">"location"</span><span class="t-comment">:</span> <span class="t-val">"Puducherry, India"</span><span class="t-comment">,</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">"focus"</span><span class="t-comment">:</span> <span class="t-val">["VAPT", "NOC", "Forensics"]</span><span class="t-comment">,</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">"ctf"</span><span class="t-comment">:</span> <span class="t-val">["RootMe", "TryHackMe"]</span><span class="t-comment">,</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">"status"</span><span class="t-comment">:</span> <span class="t-green">"open_to_work"</span><span class="t-comment">,</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">"availability"</span><span class="t-comment">:</span> <span class="t-green">"open_to_travel"</span></div>
+        <div><span class="t-comment">}</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-prompt">$ </span><span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Work Experience</div>
+    <h2>Where I've Worked</h2>
+    <p class="section-subtitle">Professional internship and industry exposure in cybersecurity research.</p>
+    <div class="exp-card fade-in">
+      <div class="exp-header">
+        <div class="exp-role">Developer &mdash; Security Policy Research (eBPF)</div>
+        <div class="exp-date">Feb 2024 &ndash; Jul 2024</div>
+      </div>
+      <div class="exp-org"><span>Orange Innovation</span> &nbsp;&middot;&nbsp; Data Privacy &amp; Innovation Team &nbsp;&middot;&nbsp; Ch&acirc;tillon, Paris &nbsp;&middot;&nbsp; Internship</div>
+      <a href="https://github.com/ramyaradjesh/eBPF---Orange---Internship" target="_blank" class="exp-repo-link"><i class="fa-brands fa-github"></i> eBPF---Orange---Internship &nbsp;&#8599;</a>
+      <ul class="exp-bullets">
+        <li>Researched eBPF (Extended Berkeley Packet Filter) integration in Android mobile security; analyzed performance and security use cases.</li>
+        <li>Assessed OS compatibility, system call control, and traffic monitoring use cases.</li>
+        <li>Identified patterns of eBPF operation across Android OS for enhanced credential risk detection.</li>
+        <li>Designed and implemented a prototype of <strong>BPFroid</strong> &mdash; a mobile malware detection framework using eBPF for Android, focused on credential-based threat detection and OS-level security monitoring.</li>
+        <li>Explored proof-of-concept approaches to detect and mitigate credential-based threats.</li>
+        <li>Applied knowledge of mobile development, system-level Android security, and risk assessment.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENTLY WORKING ON -->
+<section id="ongoing">
+  <div class="section-inner">
+    <div class="section-label orange">Currently Working On</div>
+    <h2>Projects in Progress</h2>
+    <p class="section-subtitle">Independent research and hands-on projects I am actively building right now.</p>
+    <div class="ongoing-grid">
+
+      <div class="ongoing-card fade-in">
+        <div class="ongoing-badge">In Progress</div>
+        <div class="ongoing-title">eBPF Threat Atlas</div>
+        <div class="ongoing-desc">Mapping how eBPF can be abused for stealth, persistence, and privilege escalation across Linux, containers, and cloud-native environments. Building an attack taxonomy covering rootkit behaviors and verifier-bypass CVEs, paired with actionable defenses &mdash; CAP_BPF/CAP_PERFMON hardening, unprivileged BPF restrictions, and bpffs controls.</div>
+        <div class="tags">
+          <span class="tag">eBPF</span><span class="tag">Linux Kernel</span><span class="tag">Kubernetes</span><span class="tag">Cloud-Native Security</span><span class="tag">Rootkit Analysis</span><span class="tag">CVE Research</span><span class="tag">Defense Policy</span>
+        </div>
+      </div>
+
+      <div class="ongoing-card fade-in">
+        <div class="ongoing-badge">In Progress</div>
+        <div class="ongoing-title">WAZUH &mdash; Threat Detection</div>
+        <div class="ongoing-desc">Hands-on project deploying and configuring Wazuh SIEM for threat detection, log analysis, and security monitoring. Exploring rule tuning, agent deployment, and alerting pipelines to build practical SOC/NOC skills.</div>
+        <div class="tags">
+          <span class="tag">Wazuh</span><span class="tag">SIEM</span><span class="tag">Threat Detection</span><span class="tag">Log Analysis</span><span class="tag">SOC/NOC</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MY PROJECTS (GitHub) -->
+<section id="myprojects">
+  <div class="section-inner">
+    <div class="section-label purple">My Projects</div>
+    <h2>Skills I'm Building</h2>
+    <p class="section-subtitle">Personal cybersecurity projects developed independently to sharpen hands-on skills &mdash; available on GitHub.</p>
+    <div class="projects-grid">
+      <div class="proj-card purple-glow fade-in">
+        <div class="proj-num">GitHub &middot; Pentest</div>
+        <div class="proj-title">Docker Challenges &mdash; Pentest Report</div>
+        <div class="proj-desc">Solved 10 Docker-based security challenges by carrying out attacks on vulnerable platforms. Created a container environment with DVWA and other targets, then conducted structured penetration tests and documented all findings.</div>
+        <a href="https://github.com/ramyaradjesh/Docker-challenges---Pentest-Report" target="_blank" class="proj-link purple-link">&#8599; View on GitHub</a>
+        <div class="tags"><span class="tag">Docker</span><span class="tag">DVWA</span><span class="tag">Penetration Testing</span><span class="tag">Kali Linux</span><span class="tag">Report Writing</span></div>
+      </div>
+      <div class="proj-card purple-glow fade-in">
+        <div class="proj-num">GitHub &middot; VAPT</div>
+        <div class="proj-title">VAPT &mdash; Vulnerability Assessment &amp; Penetration Testing</div>
+        <div class="proj-desc">Comprehensive vulnerability assessment covering port and service enumeration, OS and configuration discovery, vulnerability scanning across networking layers, and web server assessment with full severity-rated documentation.</div>
+        <a href="https://github.com/ramyaradjesh/VAPT" target="_blank" class="proj-link purple-link">&#8599; View on GitHub</a>
+        <div class="tags"><span class="tag">Nmap</span><span class="tag">Port Scanning</span><span class="tag">VAPT</span><span class="tag">Kali Linux</span><span class="tag">Networking</span></div>
+      </div>
+      <div class="proj-card purple-glow fade-in">
+        <div class="proj-num">GitHub &middot; Web Security</div>
+        <div class="proj-title">Web-Based VAPT</div>
+        <div class="proj-desc">Identified and exploited multiple critical web vulnerabilities including IDOR, XSS leading to JWT token theft, and API flaws. Methodology included passive recon, credential analysis, and privilege escalation testing.</div>
+        <a href="https://github.com/ramyaradjesh/Web---based-VAPT-" target="_blank" class="proj-link purple-link">&#8599; View on GitHub</a>
+        <div class="tags"><span class="tag">XSS</span><span class="tag">IDOR</span><span class="tag">JWT</span><span class="tag">API Security</span><span class="tag">OWASP Top 10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIC PROJECTS -->
+<section id="resumeprojects">
+  <div class="section-inner">
+    <div class="section-label">Projects I Have Worked On</div>
+    <h2>Academic &amp; Coursework Projects</h2>
+    <p class="section-subtitle">Projects completed during Master's training and academic coursework in cybersecurity.</p>
+    <div class="projects-grid">
+      <div class="proj-card green-glow fade-in">
+        <div class="proj-num">01 &middot; Master's Project</div>
+        <div class="proj-title">Password Cracking Tool</div>
+        <div class="proj-desc">Distributed password-cracking system using Kubernetes, Docker, and bcrypt with multiprocessing. Presented to mentors and cybersecurity professionals demonstrating client database security.</div>
+        <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">bcrypt</span><span class="tag">Python</span><span class="tag">Multiprocessing</span></div>
+      </div>
+      <div class="proj-card green-glow fade-in">
+        <div class="proj-num">02 &middot; Digital Forensics</div>
+        <div class="proj-title">Incident Response &mdash; Hardware Dump</div>
+        <div class="proj-desc">Investigated a hardware dump to extract details about a compromised server. Identified vulnerabilities, IP addresses, and services executed &mdash; producing a full forensic timeline report.</div>
+        <div class="tags"><span class="tag">Kali Linux</span><span class="tag">DFIR</span><span class="tag">Disk Imaging</span><span class="tag">Timeline Analysis</span></div>
+      </div>
+      <div class="proj-card green-glow fade-in">
+        <div class="proj-num">03 &middot; Web Security</div>
+        <div class="proj-title">Web Application Security Audit</div>
+        <div class="proj-desc">Identified vulnerabilities in a web application using CWE taxonomy, calculating risk and severity scores through use case and privilege analysis on an e-commerce platform.</div>
+        <div class="tags"><span class="tag">Kali Linux</span><span class="tag">CWE</span><span class="tag">OWASP Top 10</span><span class="tag">VAPT</span></div>
+      </div>
+      <div class="proj-card green-glow fade-in">
+        <div class="proj-num">04 &middot; Audit</div>
+        <div class="proj-title">Software &amp; Database Audit</div>
+        <div class="proj-desc">Found and assessed vulnerabilities inside software and database systems using CWE classification. Calculated risk and severity scores through structured use case and privilege investigation.</div>
+        <div class="tags"><span class="tag">Kali Linux</span><span class="tag">CWE</span><span class="tag">Database Security</span><span class="tag">Auditing</span></div>
+      </div>
+      <div class="proj-card green-glow fade-in">
+        <div class="proj-num">05 &middot; Cryptography</div>
+        <div class="proj-title">Password Manager Tool</div>
+        <div class="proj-desc">Built a secure password manager encrypting stored passwords using salting and the Fernet symmetric encryption library, ensuring confidentiality and integrity of credentials.</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Cryptography</span><span class="tag">Fernet</span><span class="tag">Salting</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label blue">Technical Skills</div>
+    <h2>My Toolkit</h2>
+    <p class="section-subtitle">Tools, frameworks, and methodologies I work with.</p>
+    <div class="skills-layout">
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Tools &amp; Platforms</div>
+        <div class="skill-list">
+          <span class="skill-pill">Kali Linux</span>
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill">Kubernetes</span>
+          <span class="skill-pill">Wireshark</span>
+          <span class="skill-pill">Splunk</span>
+          <span class="skill-pill">Nmap</span>
+          <span class="skill-pill">Wazuh</span>
+          <span class="skill-pill">Cisco Packet Tracer</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Security &amp; Monitoring</div>
+        <div class="skill-list">
+          <span class="skill-pill">VAPT</span>
+          <span class="skill-pill">Network Security</span>
+          <span class="skill-pill">Vuln Scanning</span>
+          <span class="skill-pill">eBPF</span>
+          <span class="skill-pill">System Hardening</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Risk &amp; Compliance</div>
+        <div class="skill-list">
+          <span class="skill-pill">ISO 27001</span>
+          <span class="skill-pill">NIST</span>
+          <span class="skill-pill">GDPR</span>
+          <span class="skill-pill">HIPAA</span>
+          <span class="skill-pill">OWASP Top 10</span>
+          <span class="skill-pill">MITRE ATT&amp;CK</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Support &amp; Soft Skills</div>
+        <div class="skill-list">
+          <span class="skill-pill">Troubleshooting L1/L2</span>
+          <span class="skill-pill">Documentation</span>
+          <span class="skill-pill">Network Monitoring</span>
+          <span class="skill-pill">Research Analysis</span>
+          <span class="skill-pill">Team Collaboration</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">CTF Platforms</div>
+        <div class="skill-list">
+          <span class="skill-pill">RootMe</span>
+          <span class="skill-pill">TryHackMe</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-list">
+          <span class="skill-pill">English (C1)</span>
+          <span class="skill-pill">Tamil (Native)</span>
+          <span class="skill-pill">French (B1)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label blue">Education</div>
+    <h2>Academic Background</h2>
+    <p class="section-subtitle">Formal training in computer security and engineering.</p>
+    <div class="edu-grid">
+      <div class="edu-card fade-in">
+        <div class="edu-deg">Master of Science &mdash; Computer Security</div>
+        <div class="edu-school">EPITA &mdash; &Eacute;cole Pour l'Informatique et les Techniques Avanc&eacute;es</div>
+        <div class="edu-date">Sept 2022 &ndash; March 2024 &middot; Paris, France</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-deg">Bachelor's &mdash; Computer Science Engineering</div>
+        <div class="edu-school">Sri Manakula Vinayagar Engineering College</div>
+        <div class="edu-date">August 2018 &ndash; April 2022 &middot; Puducherry, India</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Contact</div>
+    <div class="contact-inner">
+      <div class="contact-text">
+        <h2>Let's Connect</h2>
+        <p>Open to NOC, VAPT, and entry-level cybersecurity roles. Available to travel. Feel free to reach out via email or connect on LinkedIn and GitHub.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:ramyaradjesh1&#64;gmail.com" class="contact-link">
+          <i class="fa-solid fa-envelope link-icon"></i>
+          <span><span class="link-label">Email</span>ramyaradjesh1&#64;gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ramya-radjesh/" target="_blank" class="contact-link">
+          <i class="fa-brands fa-linkedin link-icon"></i>
+          <span><span class="link-label">LinkedIn</span>linkedin.com/in/ramya-radjesh</span>
+        </a>
+        <a href="https://github.com/ramyaradjesh/" target="_blank" class="contact-link">
+          <i class="fa-brands fa-github link-icon"></i>
+          <span><span class="link-label">GitHub</span>github.com/ramyaradjesh</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-copy">Ramya Radjesh</div>
+    <div class="footer-tagline">Cybersecurity Graduate &nbsp;&middot;&nbsp; Open to Work &amp; Travel</div>
+  </div>
+  <div class="footer-right">
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/ramya-radjesh/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/ramyaradjesh/" target="_blank">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+<script>
+// Cybersecurity network node animation
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, nodes = [], animFrame;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function Node() {
+  this.x = Math.random() * W;
+  this.y = Math.random() * H;
+  this.vx = (Math.random() - 0.5) * 0.4;
+  this.vy = (Math.random() - 0.5) * 0.4;
+  this.r = Math.random() * 2 + 1;
+  this.type = Math.random() > 0.7 ? 'hex' : 'dot';
+}
+
+function drawHex(x, y, size) {
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) {
+    const a = (Math.PI / 3) * i - Math.PI / 6;
+    i === 0 ? ctx.moveTo(x + size * Math.cos(a), y + size * Math.sin(a))
+             : ctx.lineTo(x + size * Math.cos(a), y + size * Math.sin(a));
+  }
+  ctx.closePath();
+  ctx.stroke();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  nodes.forEach(n => {
+    n.x += n.vx; n.y += n.vy;
+    if (n.x < 0 || n.x > W) n.vx *= -1;
+    if (n.y < 0 || n.y > H) n.vy *= -1;
+  });
+
+  // Draw connections
+  ctx.strokeStyle = 'rgba(0,229,160,0.12)';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 140) {
+        ctx.globalAlpha = (1 - dist / 140) * 0.4;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Draw nodes
+  nodes.forEach(n => {
+    ctx.globalAlpha = 0.7;
+    ctx.strokeStyle = '#00e5a0';
+    ctx.fillStyle = '#00e5a0';
+    ctx.lineWidth = 1;
+    if (n.type === 'hex') {
+      drawHex(n.x, n.y, n.r * 3);
+    } else {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  });
+
+  ctx.globalAlpha = 1;
+  animFrame = requestAnimationFrame(draw);
+}
+
+resize();
+for (let i = 0; i < 60; i++) nodes.push(new Node());
+window.addEventListener('resize', () => { resize(); });
+draw();
+</script>
+
+</body>
+</html>
