@@ -390,20 +390,23 @@ h1 .last{color:var(--accent)}
 
 /* ── LIVE INTEL STRIP ── */
 #live-strip {
-  background: linear-gradient(135deg, rgba(0,229,160,0.1) 0%, rgba(4,8,15,0.99) 50%, rgba(255,82,0,0.06) 100%);
-  border-bottom: 2px solid rgba(0,229,160,0.35);
-  border-top: 1px solid rgba(0,229,160,0.2);
-  padding: 18px 80px;
+  background: linear-gradient(135deg, rgba(0,229,160,0.08) 0%, rgba(4,8,15,0.99) 50%, rgba(255,82,0,0.05) 100%);
+  border-bottom: 1px solid rgba(0,229,160,0.25);
+  border-top: 1px solid rgba(0,229,160,0.15);
+  padding: 10px 80px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
   position: sticky;
   top: 64px;
   z-index: 90;
   backdrop-filter: blur(20px);
-  flex-wrap: wrap;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 2px 0 rgba(0,229,160,0.2), inset 0 1px 0 rgba(0,229,160,0.08);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(0,229,160,0.06);
 }
+#live-strip::-webkit-scrollbar { display:none; }
 /* animated scan line on strip */
 #live-strip::before {
   content:'';
@@ -418,68 +421,73 @@ h1 .last{color:var(--accent)}
   100% { transform:translateX(100%); }
 }
 .live-strip-label {
-  font-size:9px; letter-spacing:4px; text-transform:uppercase;
+  font-size:8px; letter-spacing:3px; text-transform:uppercase;
   color:var(--accent);
   flex-shrink:0;
-  display:flex; align-items:center; gap:8px;
+  display:flex; align-items:center; gap:7px;
   font-weight:700;
-  background: rgba(0,229,160,0.12);
-  border: 1px solid rgba(0,229,160,0.4);
-  padding: 8px 14px;
-  box-shadow: 0 0 12px rgba(0,229,160,0.1);
+  background: rgba(0,229,160,0.10);
+  border: 1px solid rgba(0,229,160,0.3);
+  padding: 6px 12px;
+  white-space:nowrap;
 }
 .live-strip-label::before {
-  content:''; width:7px; height:7px; border-radius:50%;
+  content:''; width:6px; height:6px; border-radius:50%;
   background:var(--accent);
   animation:blink 1.2s ease infinite;
-  box-shadow: 0 0 8px var(--accent);
+  box-shadow: 0 0 6px var(--accent);
 }
 .live-box {
-  display:inline-flex; align-items:center; gap:16px;
+  display:inline-flex; align-items:center; gap:12px;
   text-decoration:none;
-  border:1px solid rgba(255,255,255,0.12);
-  padding: 18px 24px;
+  border:1px solid rgba(255,255,255,0.10);
+  padding: 10px 16px;
   color:var(--text);
-  background: rgba(255,255,255,0.04);
-  transition:all 0.3s cubic-bezier(0.2,0,0,1);
-  min-width:280px;
-  max-width:430px;
+  background: rgba(255,255,255,0.03);
+  transition:all 0.25s cubic-bezier(0.2,0,0,1);
+  min-width:220px;
+  max-width:370px;
   position:relative;
   overflow:hidden;
   border-radius:2px;
+  flex-shrink:0;
 }
 .live-box::before {
   content:'';
-  position:absolute; left:0; top:0; bottom:0; width:4px;
+  position:absolute; left:0; top:0; bottom:0; width:3px;
 }
-.live-box.ctf-box::before  { background:#00ff88; box-shadow: 3px 0 18px rgba(0,255,136,0.7); }
-.live-box.news-box::before { background:var(--orange); box-shadow: 3px 0 18px rgba(255,82,0,0.7); }
-.live-box:hover { transform:translateY(-2px); }
-.live-box-icon { font-size:26px; flex-shrink:0; line-height:1; }
+.live-box.ctf-box::before  { background:#00ff88; box-shadow: 2px 0 12px rgba(0,255,136,0.6); }
+.live-box.news-box::before { background:var(--orange); box-shadow: 2px 0 12px rgba(255,82,0,0.6); }
+.live-box-dot {
+  width:8px; height:8px; border-radius:50%;
+  flex-shrink:0;
+}
+.live-box.ctf-box .live-box-dot  { background:#00ff88; box-shadow:0 0 6px #00ff88; }
+.live-box.news-box .live-box-dot { background:var(--orange); box-shadow:0 0 6px var(--orange); }
 .live-box-content { min-width:0; flex:1; }
 .live-box-label {
-  font-size:10px; letter-spacing:3px; text-transform:uppercase;
-  display:block; margin-bottom:6px; font-weight:700;
+  font-size:9px; letter-spacing:2px; text-transform:uppercase;
+  display:block; margin-bottom:3px; font-weight:700;
 }
 .live-box-title {
-  font-size:14px; color:var(--text); font-weight:700;
+  font-size:12px; color:var(--text); font-weight:600;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  display:block; max-width:340px; line-height:1.4;
+  display:block; max-width:300px; line-height:1.4;
   font-family:'Syne',sans-serif;
 }
-.live-box.ctf-box .live-box-icon { color:#00ff88; }
-.live-box.ctf-box .live-box-label { color:#00ff88; }
-.live-box.ctf-box:hover { border-color:rgba(0,255,136,0.6); background:rgba(0,255,136,0.09); box-shadow:0 12px 32px rgba(0,255,136,0.25), 0 0 0 1px rgba(0,255,136,0.2); transform:translateY(-3px); }
-.live-box.news-box .live-box-icon { color:var(--orange); }
+.live-box.ctf-box .live-box-label  { color:#00ff88; }
 .live-box.news-box .live-box-label { color:var(--orange); }
-.live-box.news-box:hover { border-color:rgba(255,82,0,0.6); background:rgba(255,82,0,0.09); box-shadow:0 12px 32px rgba(255,82,0,0.25), 0 0 0 1px rgba(255,82,0,0.2); transform:translateY(-3px); }
+.live-box:hover { transform:translateY(-2px); }
+.live-box.ctf-box:hover  { border-color:rgba(0,255,136,0.5); background:rgba(0,255,136,0.07); box-shadow:0 8px 24px rgba(0,255,136,0.15); }
+.live-box.news-box:hover { border-color:rgba(255,82,0,0.5); background:rgba(255,82,0,0.07); box-shadow:0 8px 24px rgba(255,82,0,0.15); }
 .live-date {
   margin-left:auto;
-  font-size:10px; letter-spacing:2px;
+  font-size:9px; letter-spacing:2px;
   color:var(--muted); flex-shrink:0;
   font-family:'DM Mono',monospace;
   border:1px solid var(--border);
-  padding:5px 12px;
+  padding:4px 10px;
+  white-space:nowrap;
 }
 
 /* ── SECTIONS ── */
@@ -1094,45 +1102,41 @@ nav {
   <!-- BOX 1: THM CTF here --> 
   <a href="https://tryhackme.com/room/waterbottle"
      target="_blank" class="live-box ctf-box">
-    <span class="live-box-icon"><i class="fa-solid fa-shield-halved"></i></span>
+    <span class="live-box-dot"></span>
     <span class="live-box-content">
       <span class="live-box-label">CTF &middot; TryHackMe</span>
       <span class="live-box-title">Waterbottle &mdash; Room Completed</span>
     </span>
-    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;color:var(--muted);margin-left:auto;flex-shrink:0;opacity:0.6"></i>
   </a>
 
   <!-- BOX 2: News 1 here -->
-  <a href="https://thehackernews.com/2026/04/new-chrome-zero-day-cve-2026-5281-under.html"
+  <a href="https://thehackernews.com/2026/04/36-malicious-npm-packages-exploited.html"
      target="_blank" class="live-box news-box">
-    <span class="live-box-icon"><i class="fa-solid fa-newspaper"></i></span>
+    <span class="live-box-dot"></span>
     <span class="live-box-content">
       <span class="live-box-label">News &middot; The Hacker News</span>
-      <span class="live-box-title">Chrome Zero-Day CVE-2026-5281 Under Active Exploitation &mdash; Patch Released</span>
+      <span class="live-box-title">36 Malicious npm Packages Exploited Redis, PostgreSQL to Deploy Persistent Implants</span>
     </span>
-    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;color:var(--muted);margin-left:auto;flex-shrink:0;opacity:0.6"></i>
   </a>
 
   <!-- BOX 3: News 2 here -->
-  <a href="https://thehackernews.com/2026/04/cisco-patches-98-cvss-imc-and-ssm-flaws.html"
+  <a href="https://thehackernews.com/2026/04/fortinet-patches-actively-exploited-cve.html"
      target="_blank" class="live-box news-box">
-    <span class="live-box-icon"><i class="fa-solid fa-newspaper"></i></span>
+    <span class="live-box-dot"></span>
     <span class="live-box-content">
       <span class="live-box-label">News &middot; The Hacker News</span>
-      <span class="live-box-title">Cisco Patches 9.8 CVSS IMC &amp; SSM Flaws Allowing Remote System Compromise</span>
+      <span class="live-box-title">Fortinet Patches Actively Exploited CVE-2026-35616 in FortiClient EMS</span>
     </span>
-    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;color:var(--muted);margin-left:auto;flex-shrink:0;opacity:0.6"></i>
   </a>
 
-  <!-- BOX 3: Project Update — Wazuh -->
+  <!-- BOX 4: Project Update — Wazuh -->
   <a href="https://github.com/ramyaradjesh?tab=repositories"
-     target="_blank" class="live-box" style="border-color:rgba(255,82,0,0.4);background:rgba(255,82,0,0.06);">
-    <span class="live-box-icon" style="color:var(--orange);"><i class="fa-solid fa-code-branch"></i></span>
+     target="_blank" class="live-box" style="border-color:rgba(255,82,0,0.35);background:rgba(255,82,0,0.05);">
+    <span class="live-box-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange);"></span>
     <span class="live-box-content">
       <span class="live-box-label" style="color:var(--orange);">Project Update &middot; Wazuh SIEM</span>
       <span class="live-box-title" style="color:#ffb380;">SOC Incident Report 1 &mdash; Published on GitHub</span>
     </span>
-    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;color:var(--orange);margin-left:auto;flex-shrink:0;opacity:0.8"></i>
   </a>
 
   <div class="live-date" id="ls-date">04 April 2026</div>
@@ -1255,11 +1259,12 @@ nav {
     <div class="section-label">Today's Activity</div>
     <div class="daily-header-row">
       <h2>Daily Learning Feed</h2>
-      <div class="daily-timestamp">Updated: 05 April 2026</div>
+      <div class="daily-timestamp">Updated: 04 April 2026</div>
     </div>
     <div class="daily-grid fade-in">
 
-      <!-- CTF SOLVED -->
+      
+   <!-- CTF SOLVED -->
       <div class="daily-card ctf" data-ticket="CTF-0331">
         <div class="daily-card-label">CTF Solved Today</div>
         <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
@@ -1271,55 +1276,61 @@ nav {
             <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">TryHackMe</span>
           </div>
           <div>
-            <div class="daily-card-title">WaterBottle</div>
-            <div class="daily-card-meta">TryHackMe · OSINT</div>
-          </div>
-        </div>
+        <div class="daily-card-title">WaterBottle</div>
+        <div class="daily-card-meta">TryHackMe · OSINT</div>
         <div class="daily-card-desc">OSINT techniques to piece together clues from the internet and identify a specific real-world water bottle location.</div>
         <div class="daily-card-tags">
           <span class="daily-tag">Linux</span>
           <span class="daily-tag">OSINT</span>
           <span class="daily-tag">WaterBottle</span>
           <span class="daily-tag">Geo Location</span>
-          <span class="daily-tag">Threat Intelligence</span>
+          <span class="daily-tag">Threat intelligence</span>
         </div>
-        <a href="https://tryhackme.com/room/waterbottle" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Room ↗</a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+          <a href="https://tryhackme.com/room/waterbottle" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Room ↗</a>
+        </div>
+      </div>
+      </div>
       </div>
 
       <!-- NEWS CARD 1 -->
-      <div class="daily-card news">
-        <div class="daily-card-label">Threat Intel &middot; News</div>
-        <div class="daily-card-title">Chrome Zero-Day CVE-2026-5281 Under Active Exploitation</div>
-        <div class="daily-card-meta">The Hacker News &middot; 01 Apr 2026</div>
-        <div class="daily-card-desc">Google patched 21 flaws including a high-severity use-after-free bug (CVE-2026-5281) in Chrome's Dawn WebGPU implementation. CISA added it to its KEV catalog, requiring federal agencies to patch by April 15. The flaw allows remote code execution via a crafted HTML page.</div>
+      <div class="daily-card news" data-ticket="NEWS-0401">
+        <div class="daily-card-label">Threat Intel &middot; The Hacker News</div>
+        <div class="daily-card-title">36 Malicious npm Packages Exploited Redis &amp; PostgreSQL</div>
+        <div class="daily-card-meta">Supply Chain &middot; Malware &middot; 05 April 2026</div>
+        <div class="daily-card-desc">Researchers uncovered 36 malicious packages published to the npm registry that abused legitimate database services — Redis and PostgreSQL — as covert communication channels to deploy persistent backdoor implants on developer machines. The campaign highlights a growing trend of attackers weaponising trusted infrastructure to evade detection in supply chain attacks.</div>
         <div class="daily-card-tags">
-          <span class="daily-tag">Chrome</span>
-          <span class="daily-tag">Zero-Day</span>
-          <span class="daily-tag">CVE-2026-5281</span>
-          <span class="daily-tag">WebGPU</span>
-          <span class="daily-tag">CISA KEV</span>
+          <span class="daily-tag">npm</span>
+          <span class="daily-tag">Supply Chain</span>
+          <span class="daily-tag">Redis</span>
+          <span class="daily-tag">PostgreSQL</span>
+          <span class="daily-tag">Backdoor</span>
+          <span class="daily-tag">Malware</span>
+          <span class="daily-tag">Open Source</span>
         </div>
-        <a href="https://thehackernews.com/2026/04/new-chrome-zero-day-cve-2026-5281-under.html" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article ↗</a>
+        <a href="https://thehackernews.com/2026/04/36-malicious-npm-packages-exploited.html" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article ↗</a>
       </div>
 
       <!-- NEWS CARD 2 -->
-      <div class="daily-card news">
-        <div class="daily-card-label">Vulnerability &middot; News</div>
-        <div class="daily-card-title">Cisco Patches Critical 9.8 CVSS IMC Flaw Allowing Remote Compromise</div>
-        <div class="daily-card-meta">The Hacker News &middot; 02 Apr 2026</div>
-        <div class="daily-card-desc">Cisco released patches for a critical flaw (CVE-2026-20093, CVSS 9.8) in its Integrated Management Controller (IMC). An unauthenticated remote attacker could bypass authentication and gain elevated system access. Organisations are urged to apply patches immediately.</div>
+      <div class="daily-card news" data-ticket="NEWS-0402">
+        <div class="daily-card-label">Threat Intel &middot; The Hacker News</div>
+        <div class="daily-card-title">Fortinet Patches Actively Exploited CVE-2026-35616 in FortiClient EMS</div>
+        <div class="daily-card-meta">CVE &middot; Patch &middot; 05 April 2026</div>
+        <div class="daily-card-desc">Fortinet released an emergency security update addressing CVE-2026-35616, a critical vulnerability in FortiClient EMS that was already being actively exploited in the wild. The flaw allows remote attackers to execute arbitrary code without authentication, making it a high-priority patch for enterprise environments relying on Fortinet's endpoint management suite.</div>
         <div class="daily-card-tags">
-          <span class="daily-tag">Cisco</span>
-          <span class="daily-tag">CVE-2026-20093</span>
-          <span class="daily-tag">CVSS 9.8</span>
-          <span class="daily-tag">Remote Code Execution</span>
-          <span class="daily-tag">Patch Now</span>
+          <span class="daily-tag">Fortinet</span>
+          <span class="daily-tag">CVE-2026-35616</span>
+          <span class="daily-tag">FortiClient EMS</span>
+          <span class="daily-tag">RCE</span>
+          <span class="daily-tag">Zero-Day</span>
+          <span class="daily-tag">Patch Tuesday</span>
+          <span class="daily-tag">Vulnerability</span>
         </div>
-        <a href="https://thehackernews.com/2026/04/cisco-patches-98-cvss-imc-and-ssm-flaws.html" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article ↗</a>
+        <a href="https://thehackernews.com/2026/04/fortinet-patches-actively-exploited-cve.html" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article ↗</a>
       </div>
 
-    </div>
-  </div>
+    </div><!-- end .daily-grid -->
+  </div><!-- end .section-inner -->
 </section>
 
 <!-- EXPERIENCE -->
