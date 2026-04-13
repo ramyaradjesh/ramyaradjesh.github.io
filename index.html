@@ -534,7 +534,7 @@ h2{
 
 /* ── DAILY INTEL SECTION ── */
 #daily {
-  background:linear-gradient(180deg, rgba(0,229,160,0.02) 0%, transparent 100%);
+  background:linear-gradient(180deg, rgba(0,229,160,0.025) 0%, transparent 100%);
 }
 #daily .section-label{color:var(--accent)}
 .daily-header-row {
@@ -544,105 +544,125 @@ h2{
 }
 .daily-header-row h2{margin-bottom:0}
 .daily-timestamp {
-  font-size:13px;letter-spacing:1px;
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
   color:var(--muted);
   border:1px solid var(--border);
   padding:6px 14px;
   display:flex;align-items:center;gap:8px;
+  font-family:'DM Mono',monospace;
 }
 .daily-timestamp::before{
-  content:'◉';color:var(--accent);font-size:8px;
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  animation:blink 1.5s ease-in-out infinite;
+  box-shadow:0 0 5px var(--accent);
 }
 
 .daily-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:16px;
+  gap:20px;
 }
+
+/* ── DAILY CARD BASE ── */
 .daily-card{
   background:var(--surface);
   border:1px solid var(--border);
-  padding:22px;
+  padding:0;
   position:relative;
   overflow:hidden;
-  transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  display:flex;flex-direction:column;
+  transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s;
 }
-.daily-card:hover{transform:translateY(-3px)}
-
-/* ticket-number decoration */
-.daily-card::after {
+.daily-card:hover{transform:translateY(-4px)}
+.daily-card::after{
   content:attr(data-ticket);
-  position:absolute;
-  top:10px;right:14px;
-  font-size:8px;
-  letter-spacing:1px;
-  color:var(--muted2);
+  position:absolute;top:14px;right:16px;
+  font-size:7px;letter-spacing:1.5px;color:var(--muted2);
+  font-family:'DM Mono',monospace;
 }
 
-.daily-card.ctf {
-  border-top:2px solid #00ff88;
-  box-shadow:inset 0 0 40px rgba(0,255,136,0.03);
+/* colour-coded top stripe */
+.daily-card-stripe{
+  height:3px;width:100%;flex-shrink:0;
 }
-.daily-card.ctf:hover{border-color:#00ff88;box-shadow:0 8px 32px rgba(0,255,136,0.1),inset 0 0 40px rgba(0,255,136,0.05)}
-.daily-card.news {
-  border-top:2px solid var(--orange);
-  box-shadow:inset 0 0 40px rgba(255,82,0,0.02);
-}
-.daily-card.news:hover{border-color:var(--orange);box-shadow:0 8px 32px rgba(255,82,0,0.1)}
-.daily-card.reddit {
-  border-top:2px solid #ff4500;
-  box-shadow:inset 0 0 40px rgba(255,69,0,0.02);
-}
-.daily-card.reddit:hover{border-color:#ff4500;box-shadow:0 8px 32px rgba(255,69,0,0.1)}
+.daily-card.ctf  .daily-card-stripe{background:linear-gradient(90deg,#00ff88,#00e5a0)}
+.daily-card.news .daily-card-stripe{background:linear-gradient(90deg,var(--orange),#ff7a35)}
 
-.daily-card-label{
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  margin-bottom:12px;display:flex;align-items:center;gap:7px;
-}
-.daily-card-label::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%}
-.daily-card.ctf .daily-card-label{color:#00ff88}
-.daily-card.ctf .daily-card-label::before{background:#00ff88;box-shadow:0 0 5px #00ff88}
-.daily-card.news .daily-card-label{color:var(--orange)}
-.daily-card.news .daily-card-label::before{background:var(--orange);box-shadow:0 0 5px var(--orange)}
-.daily-card.reddit .daily-card-label{color:#ff4500}
-.daily-card.reddit .daily-card-label::before{background:#ff4500;box-shadow:0 0 5px #ff4500}
+.daily-card.ctf:hover {border-color:#00ff88;box-shadow:0 12px 36px rgba(0,255,136,0.12)}
+.daily-card.news:hover{border-color:var(--orange);box-shadow:0 12px 36px rgba(255,82,0,0.12)}
 
+/* inner padding wrapper */
+.daily-card-body{padding:22px;display:flex;flex-direction:column;flex:1}
+
+/* platform badge row */
+.daily-card-platform{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:16px;
+}
+.daily-platform-icon{
+  width:32px;height:32px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:9px;font-weight:700;letter-spacing:0.5px;
+  font-family:'DM Mono',monospace;
+}
+.daily-card.ctf  .daily-platform-icon{background:#0d1f14;border:1px solid rgba(0,255,136,0.3);color:#00ff88}
+.daily-card.news .daily-platform-icon{background:#1a0f00;border:1px solid rgba(255,82,0,0.3);color:var(--orange)}
+.daily-platform-info{display:flex;flex-direction:column;gap:2px}
+.daily-platform-name{
+  font-size:8px;letter-spacing:2px;text-transform:uppercase;
+  font-family:'DM Mono',monospace;
+}
+.daily-card.ctf  .daily-platform-name{color:#00ff88}
+.daily-card.news .daily-platform-name{color:var(--orange)}
+.daily-platform-type{font-size:9px;color:var(--muted);letter-spacing:0.5px}
+
+/* card content */
 .daily-card-title{
   font-family:'Syne',sans-serif;
   font-size:17px;font-weight:700;
-  color:var(--text);margin-bottom:8px;line-height:1.4;
+  color:var(--text);margin-bottom:6px;line-height:1.35;
 }
-.daily-card-meta{font-size:13px;letter-spacing:0.5px;color:var(--muted);margin-bottom:12px}
-.daily-card-desc{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:14px}
-.daily-card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.daily-card-meta{
+  font-size:10px;letter-spacing:0.8px;color:var(--muted2);
+  margin-bottom:12px;font-family:'DM Mono',monospace;
+}
+.daily-card-desc{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:16px;flex:1}
+.daily-card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
 .daily-tag{
   font-size:8px;letter-spacing:0.8px;text-transform:uppercase;
-  padding:2px 8px;
+  padding:3px 9px;
   border:1px solid var(--border2);
   color:var(--muted);
   background:rgba(255,255,255,0.02);
 }
-.daily-card-link{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:9px;letter-spacing:0.5px;
-  color:var(--muted);text-decoration:none;
-  transition:color 0.2s;
-  padding:4px 0;
-  border-bottom:1px solid transparent;
-}
-.daily-card.ctf .daily-card-link:hover{color:#00ff88;border-bottom-color:#00ff88}
-.daily-card.news .daily-card-link:hover{color:var(--orange);border-bottom-color:var(--orange)}
-.daily-card.reddit .daily-card-link:hover{color:#ff4500;border-bottom-color:#ff4500}
 
-.ctf-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:8px;letter-spacing:1.5px;text-transform:uppercase;
-  padding:3px 10px;
-  border:1px solid rgba(0,255,136,0.3);color:#00ff88;
-  background:rgba(0,255,136,0.05);margin-bottom:10px;
+/* link row at bottom */
+.daily-card-footer{
+  border-top:1px solid var(--border);
+  padding:12px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:auto;
 }
-.thm-logo{display:flex;align-items:center;gap:9px;margin-bottom:12px}
-.thm-logo svg{width:26px;height:26px}
+.daily-card-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:9px;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  font-family:'DM Mono',monospace;
+  transition:color 0.2s;
+}
+.daily-card.ctf  .daily-card-link{color:#00ff88}
+.daily-card.ctf  .daily-card-link:hover{color:#fff}
+.daily-card.news .daily-card-link{color:var(--orange)}
+.daily-card.news .daily-card-link:hover{color:#fff}
+.daily-solved-badge{
+  font-size:7px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;
+}
+.daily-card.ctf  .daily-solved-badge{background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.25);color:#00ff88}
+.daily-card.news .daily-solved-badge{background:rgba(255,82,0,0.08);border:1px solid rgba(255,82,0,0.25);color:var(--orange)}
+
+
 .reddit-links{display:flex;flex-direction:column;gap:8px;margin-top:6px}
 .reddit-link-item{
   display:flex;align-items:center;gap:9px;
@@ -946,8 +966,8 @@ nav {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 80px;
-  height:64px;
+  padding:0 40px;
+  height:60px;
   background:rgba(4,8,15,0.96);
   backdrop-filter:blur(14px);
   border-bottom:1px solid var(--border);
@@ -984,18 +1004,19 @@ nav {
 }
 .nav-links {
   display:flex;
-  gap:4px;
+  gap:2px;
   list-style:none;
 }
 .nav-links a {
   color:var(--muted);
   text-decoration:none;
-  font-size:10px;
-  letter-spacing:0.8px;
+  font-size:9px;
+  letter-spacing:0.5px;
   text-transform:uppercase;
   transition:color 0.2s;
-  padding:6px 10px;
+  padding:5px 8px;
   border:1px solid transparent;
+  white-space:nowrap;
 }
 .nav-links a:hover {
   color:var(--accent);
@@ -1005,7 +1026,7 @@ nav {
 .nav-right {
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:10px;
 }
 .nav-clock {
   display:flex;
@@ -1014,25 +1035,26 @@ nav {
   line-height:1.3;
 }
 .nav-clock-time {
-  font-size:16px;
+  font-size:14px;
   font-family:'Syne',sans-serif;
   font-weight:700;
   color:var(--accent);
   letter-spacing:2px;
 }
 .nav-clock-date {
-  font-size:8px;
+  font-size:7px;
   letter-spacing:1.5px;
   color:var(--muted);
   text-transform:uppercase;
 }
 .nav-status {
-  display:flex;align-items:center;gap:6px;
-  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  display:flex;align-items:center;gap:5px;
+  font-size:8px;letter-spacing:1px;text-transform:uppercase;
   color:var(--accent);
   background:rgba(0,229,160,0.08);
   border:1px solid rgba(0,229,160,0.25);
-  padding:5px 10px;
+  padding:4px 8px;
+  white-space:nowrap;
 }
 .nav-status::before{
   content:'';width:6px;height:6px;border-radius:50%;
@@ -1053,6 +1075,59 @@ nav {
 #hero,section{padding-top:70px}
 #live-strip{top:0}
 }
+/* ── MEDIUM WRITE-UPS ── */
+.medium-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:28px}
+.medium-card{
+  display:flex;flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:22px;
+  text-decoration:none;
+  color:var(--text);
+  transition:all 0.22s;
+  position:relative;
+  overflow:hidden;
+}
+.medium-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:#00ab6c;
+  transition:width 0.2s;
+}
+.medium-card:hover{
+  border-color:rgba(0,171,108,0.45);
+  background:rgba(0,171,108,0.04);
+  transform:translateY(-3px);
+  box-shadow:0 8px 28px rgba(0,171,108,0.12);
+}
+.medium-card:hover::before{width:4px}
+.medium-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.medium-tag-row{display:flex;gap:6px;flex-wrap:wrap}
+.medium-platform-tag{
+  font-size:8px;letter-spacing:1.5px;text-transform:uppercase;
+  color:#00ab6c;border:1px solid rgba(0,171,108,0.3);
+  background:rgba(0,171,108,0.07);padding:3px 8px;
+  font-family:'DM Mono',monospace;
+}
+.medium-arrow{
+  font-size:16px;color:var(--muted);
+  transition:color 0.2s,transform 0.2s;
+}
+.medium-card:hover .medium-arrow{color:#00ab6c;transform:translate(2px,-2px)}
+.medium-card-title{
+  font-family:'Syne',sans-serif;font-size:16px;font-weight:700;
+  margin-bottom:10px;line-height:1.3;color:var(--text);
+}
+.medium-card-desc{
+  font-size:12px;color:var(--muted);line-height:1.8;
+  flex:1;margin-bottom:16px;
+}
+.medium-card-meta{
+  display:flex;align-items:center;gap:6px;
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  color:#00ab6c;font-family:'DM Mono',monospace;
+  border-top:1px solid var(--border);padding-top:12px;margin-top:auto;
+}
+
 </style>
 </head>
 <body>
@@ -1087,7 +1162,7 @@ nav {
     <a href="https://www.linkedin.com/in/ramya-radjesh/" target="_blank" class="sb-link"><i class="fa-brands fa-linkedin"></i>LinkedIn ↗</a>
   </nav>
   <div class="sb-footer">
-    <div class="sb-footer-date" id="sb-date">SUN MAR 15 2026</div>
+    <div class="sb-footer-date" id="sb-date">MON 13 APR 2026</div>
     <div class="sb-clock" id="sb-clock">--:--</div>
   </div>
 </aside>
@@ -1100,46 +1175,36 @@ nav {
   <div class="live-strip-label">Today's Intel</div>
 
   <!-- BOX 1: THM CTF here --> 
-  <a href="https://tryhackme.com/room/waterbottle"
+  <a href="https://tryhackme.com/room/haveabreak?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=62fe75b8dba800004382659d"
      target="_blank" class="live-box ctf-box">
     <span class="live-box-dot"></span>
     <span class="live-box-content">
       <span class="live-box-label">CTF &middot; TryHackMe</span>
-      <span class="live-box-title">Waterbottle &mdash; Room Completed</span>
+      <span class="live-box-title">Have a Break &mdash; Room Completed</span>
     </span>
   </a>
 
   <!-- BOX 2: News 1 here -->
-  <a href="https://thehackernews.com/2026/04/36-malicious-npm-packages-exploited.html"
+  <a href="https://thehackernews.com/2026/04/adobe-patches-actively-exploited.html"
      target="_blank" class="live-box news-box">
     <span class="live-box-dot"></span>
     <span class="live-box-content">
       <span class="live-box-label">News &middot; The Hacker News</span>
-      <span class="live-box-title">36 Malicious npm Packages Exploited Redis, PostgreSQL to Deploy Persistent Implants</span>
+      <span class="live-box-title">Adobe Patches Actively Exploited Acrobat Reader Flaw CVE-2026-34621</span>
     </span>
   </a>
 
   <!-- BOX 3: News 2 here -->
-  <a href="https://thehackernews.com/2026/04/fortinet-patches-actively-exploited-cve.html"
+  <a href="https://thehackernews.com/2026/04/google-rolls-out-dbsc-in-chrome-146-to.html"
      target="_blank" class="live-box news-box">
     <span class="live-box-dot"></span>
     <span class="live-box-content">
       <span class="live-box-label">News &middot; The Hacker News</span>
-      <span class="live-box-title">Fortinet Patches Actively Exploited CVE-2026-35616 in FortiClient EMS</span>
+      <span class="live-box-title">Google Rolls Out DBSC in Chrome 146 to Block Session Theft on Windows</span>
     </span>
   </a>
 
-  <!-- BOX 4: Project Update — Wazuh -->
-  <a href="https://github.com/ramyaradjesh?tab=repositories"
-     target="_blank" class="live-box" style="border-color:rgba(255,82,0,0.35);background:rgba(255,82,0,0.05);">
-    <span class="live-box-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange);"></span>
-    <span class="live-box-content">
-      <span class="live-box-label" style="color:var(--orange);">Project Update &middot; Wazuh SIEM</span>
-      <span class="live-box-title" style="color:#ffb380;">SOC Incident Report 1 &mdash; Published on GitHub</span>
-    </span>
-  </a>
-
-  <div class="live-date" id="ls-date">04 April 2026</div>
+  <div class="live-date" id="ls-date">13 April 2026</div>
 </div>
 
 <nav>
@@ -1153,6 +1218,7 @@ nav {
     <li><a href="#daily">Daily Activity</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#ongoing">In Progress</a></li>
+    <li><a href="#medium">Write-Ups</a></li>
     <li><a href="#myprojects">My Projects</a></li>
     <li><a href="#resumeprojects">Past Projects</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -1259,74 +1325,100 @@ nav {
     <div class="section-label">Today's Activity</div>
     <div class="daily-header-row">
       <h2>Daily Learning Feed</h2>
-      <div class="daily-timestamp">Updated: 04 April 2026</div>
+      <div class="daily-timestamp">Updated: 13 April 2026</div>
     </div>
     <div class="daily-grid fade-in">
 
-      
-   <!-- CTF SOLVED -->
-      <div class="daily-card ctf" data-ticket="CTF-0331">
-        <div class="daily-card-label">CTF Solved Today</div>
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
-          <div class="thm-logo" style="margin-bottom:0;">
-            <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="50" height="50" rx="8" fill="#1f2937"/>
-              <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="monospace" font-size="14" fill="#00ff88" font-weight="bold">THM</text>
-            </svg>
-            <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">TryHackMe</span>
+      <!-- CTF CARD -->
+      <div class="daily-card ctf" data-ticket="CTF-0413">
+        <div class="daily-card-stripe"></div>
+        <div class="daily-card-body">
+          <div class="daily-card-platform">
+            <div class="daily-platform-icon">THM</div>
+            <div class="daily-platform-info">
+              <span class="daily-platform-name">TryHackMe</span>
+              <span class="daily-platform-type">Steganography &middot; OSINT</span>
+            </div>
           </div>
-          <div>
-        <div class="daily-card-title">WaterBottle</div>
-        <div class="daily-card-meta">TryHackMe · OSINT</div>
-        <div class="daily-card-desc">OSINT techniques to piece together clues from the internet and identify a specific real-world water bottle location.</div>
-        <div class="daily-card-tags">
-          <span class="daily-tag">Linux</span>
-          <span class="daily-tag">OSINT</span>
-          <span class="daily-tag">WaterBottle</span>
-          <span class="daily-tag">Geo Location</span>
-          <span class="daily-tag">Threat intelligence</span>
+          <div class="daily-card-title">Have a Break</div>
+          <div class="daily-card-meta">Room Completed &middot; 13 April 2026</div>
+          <div class="daily-card-desc">A steganography and OSINT challenge requiring analysis of hidden data embedded within images and files. Applied image metadata extraction, steghide, and open-source investigation techniques to uncover concealed information and capture the flag.</div>
+          <div class="daily-card-tags">
+            <span class="daily-tag">Steganography</span>
+            <span class="daily-tag">OSINT</span>
+            <span class="daily-tag">Hidden Data</span>
+            <span class="daily-tag">Forensics</span>
+            <span class="daily-tag">CTF</span>
+          </div>
         </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
-          <a href="https://tryhackme.com/room/waterbottle" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Room ↗</a>
+        <div class="daily-card-footer">
+          <a href="https://tryhackme.com/room/haveabreak?utm_campaign=social_share&utm_medium=social&utm_content=share-completed-room&utm_source=copy&sharerId=62fe75b8dba800004382659d" target="_blank" class="daily-card-link">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Room
+          </a>
+          <span class="daily-solved-badge">&#10003; Completed</span>
         </div>
-      </div>
-      </div>
       </div>
 
       <!-- NEWS CARD 1 -->
       <div class="daily-card news" data-ticket="NEWS-0401">
-        <div class="daily-card-label">Threat Intel &middot; The Hacker News</div>
-        <div class="daily-card-title">36 Malicious npm Packages Exploited Redis &amp; PostgreSQL</div>
-        <div class="daily-card-meta">Supply Chain &middot; Malware &middot; 05 April 2026</div>
-        <div class="daily-card-desc">Researchers uncovered 36 malicious packages published to the npm registry that abused legitimate database services — Redis and PostgreSQL — as covert communication channels to deploy persistent backdoor implants on developer machines. The campaign highlights a growing trend of attackers weaponising trusted infrastructure to evade detection in supply chain attacks.</div>
-        <div class="daily-card-tags">
-          <span class="daily-tag">npm</span>
-          <span class="daily-tag">Supply Chain</span>
-          <span class="daily-tag">Redis</span>
-          <span class="daily-tag">PostgreSQL</span>
-          <span class="daily-tag">Backdoor</span>
-          <span class="daily-tag">Malware</span>
-          <span class="daily-tag">Open Source</span>
+        <div class="daily-card-stripe"></div>
+        <div class="daily-card-body">
+          <div class="daily-card-platform">
+            <div class="daily-platform-icon">THN</div>
+            <div class="daily-platform-info">
+              <span class="daily-platform-name">The Hacker News</span>
+              <span class="daily-platform-type">CVE &middot; Patch Advisory</span>
+            </div>
+          </div>
+          <div class="daily-card-title">Adobe Patches Actively Exploited Acrobat Reader Flaw CVE-2026-34621</div>
+          <div class="daily-card-meta">13 April 2026</div>
+          <div class="daily-card-desc">Adobe released an emergency patch for CVE-2026-34621, a critical zero-day in Acrobat Reader actively exploited in the wild. The flaw enables arbitrary code execution via a crafted PDF. Security teams are urged to patch immediately across all environments where Acrobat Reader is deployed.</div>
+          <div class="daily-card-tags">
+            <span class="daily-tag">Adobe</span>
+            <span class="daily-tag">CVE-2026-34621</span>
+            <span class="daily-tag">Zero-Day</span>
+            <span class="daily-tag">RCE</span>
+            <span class="daily-tag">Acrobat Reader</span>
+            <span class="daily-tag">PDF</span>
+          </div>
         </div>
-        <a href="https://thehackernews.com/2026/04/36-malicious-npm-packages-exploited.html" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article ↗</a>
+        <div class="daily-card-footer">
+          <a href="https://thehackernews.com/2026/04/adobe-patches-actively-exploited.html" target="_blank" class="daily-card-link">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article
+          </a>
+          <span class="daily-solved-badge">&#9632; Threat Intel</span>
+        </div>
       </div>
 
       <!-- NEWS CARD 2 -->
       <div class="daily-card news" data-ticket="NEWS-0402">
-        <div class="daily-card-label">Threat Intel &middot; The Hacker News</div>
-        <div class="daily-card-title">Fortinet Patches Actively Exploited CVE-2026-35616 in FortiClient EMS</div>
-        <div class="daily-card-meta">CVE &middot; Patch &middot; 05 April 2026</div>
-        <div class="daily-card-desc">Fortinet released an emergency security update addressing CVE-2026-35616, a critical vulnerability in FortiClient EMS that was already being actively exploited in the wild. The flaw allows remote attackers to execute arbitrary code without authentication, making it a high-priority patch for enterprise environments relying on Fortinet's endpoint management suite.</div>
-        <div class="daily-card-tags">
-          <span class="daily-tag">Fortinet</span>
-          <span class="daily-tag">CVE-2026-35616</span>
-          <span class="daily-tag">FortiClient EMS</span>
-          <span class="daily-tag">RCE</span>
-          <span class="daily-tag">Zero-Day</span>
-          <span class="daily-tag">Patch Tuesday</span>
-          <span class="daily-tag">Vulnerability</span>
+        <div class="daily-card-stripe"></div>
+        <div class="daily-card-body">
+          <div class="daily-card-platform">
+            <div class="daily-platform-icon">THN</div>
+            <div class="daily-platform-info">
+              <span class="daily-platform-name">The Hacker News</span>
+              <span class="daily-platform-type">Browser Security</span>
+            </div>
+          </div>
+          <div class="daily-card-title">Google Rolls Out DBSC in Chrome 146 to Block Session Theft on Windows</div>
+          <div class="daily-card-meta">13 April 2026</div>
+          <div class="daily-card-desc">Google is rolling out Device Bound Session Credentials (DBSC) in Chrome 146 for Windows — a new mechanism that binds authentication sessions to a device's TPM chip, making stolen session cookies useless to attackers without physical access to the machine.</div>
+          <div class="daily-card-tags">
+            <span class="daily-tag">Google Chrome</span>
+            <span class="daily-tag">DBSC</span>
+            <span class="daily-tag">Session Hijacking</span>
+            <span class="daily-tag">TPM</span>
+            <span class="daily-tag">Cookie Theft</span>
+            <span class="daily-tag">Windows</span>
+          </div>
         </div>
-        <a href="https://thehackernews.com/2026/04/fortinet-patches-actively-exploited-cve.html" target="_blank" class="daily-card-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article ↗</a>
+        <div class="daily-card-footer">
+          <a href="https://thehackernews.com/2026/04/google-rolls-out-dbsc-in-chrome-146-to.html" target="_blank" class="daily-card-link">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article
+          </a>
+          <span class="daily-solved-badge">&#9632; Threat Intel</span>
+        </div>
       </div>
 
     </div><!-- end .daily-grid -->
@@ -1369,23 +1461,52 @@ nav {
     <div class="section-label orange">Currently Working On</div>
     <h2>Projects in Progress</h2>
     <p class="section-subtitle">Independent research and hands-on projects I am actively building right now.</p>
-    <!-- PROJECT UPDATE ALERT BANNER -->
-    <div class="project-update-banner">
-      <div class="pub-alert-icon">🚨</div>
+
+    <!-- NEW PROJECTS ALERT BANNER -->
+    <div class="project-update-banner" style="background:linear-gradient(135deg,rgba(0,229,160,0.10),rgba(0,229,160,0.03));border-color:rgba(0,229,160,0.45);border-left:4px solid var(--accent);">
+      <div class="pub-alert-icon" style="font-size:22px;">🆕</div>
       <div class="pub-alert-body">
-        <div class="pub-alert-label">&#9632; Project Update &nbsp;&middot;&nbsp; 29 Mar 2026</div>
-        <div class="pub-alert-title">WAZUH — Threat Detection &nbsp;&middot;&nbsp; Incident Report 1 Published</div>
-        <div class="pub-alert-desc">
-          SOC Incident Report 1 has been documented and pushed to GitHub. This report covers the first hands-on detection exercise using Wazuh SIEM — including alert triage, log analysis, rule correlation, and incident timeline reconstruction.
-        </div>
-        <a href="https://github.com/ramyaradjesh?tab=repositories" target="_blank" class="pub-alert-link">
-          <i class="fa-brands fa-github"></i> View on GitHub &nbsp;&#8599;
-        </a>
+        <div class="pub-alert-label" style="color:var(--accent);">&#9632; New Projects Added &nbsp;&middot;&nbsp; 13 Apr 2026</div>
+        <div id="new-proj-ticker" class="pub-alert-title" style="color:var(--accent);font-size:14px;transition:opacity 0.5s;">Antivirus Simulation &mdash; Signature Scanner + VirusTotal</div>
+        <div class="pub-alert-desc">Two new hands-on cybersecurity projects now live — built independently to deepen practical SOC and malware analysis skills.</div>
       </div>
-      <div class="pub-alert-badge">&#9632;&nbsp;Just Updated</div>
+      <div class="pub-alert-badge" style="background:rgba(0,229,160,0.12);border-color:rgba(0,229,160,0.35);color:var(--accent);">&#9632;&nbsp;Just Added</div>
     </div>
 
     <div class="ongoing-grid">
+
+      <div class="ongoing-card fade-in">
+        <div class="ongoing-badge">In Progress</div>
+        <div class="ongoing-title">Antivirus Simulation &mdash; Signature Scanner + VirusTotal</div>
+        <div class="ongoing-desc">A Python project demonstrating how real antivirus engines work &mdash; with two-layer threat detection: local signature matching AND live VirusTotal cloud intelligence. Combines offline hash/pattern scanning with real-time API lookups to detect, flag, and report malicious files, mimicking the core detection logic of production AV tools.</div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">Antivirus</span><span class="tag">VirusTotal API</span><span class="tag">Signature Detection</span><span class="tag">Malware Analysis</span><span class="tag">Threat Detection</span>
+        </div>
+        <a href="https://github.com/ramyaradjesh/Antivirus-Simulation" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,229,160,0.3);padding-bottom:1px;">
+          <i class="fa-brands fa-github"></i> View on GitHub &nbsp;&#8599;
+        </a>
+      </div>
+
+      <div class="ongoing-card fade-in">
+        <div class="ongoing-badge">In Progress</div>
+        <div class="ongoing-title">SOC Home Lab &mdash; Honeypot &amp; MITRE ATT&amp;CK Mapping</div>
+        <div class="ongoing-desc">Built an Ubuntu-based Security Operations Center (SOC) home lab featuring Wazuh SIEM for centralised logging and alerting, Cowrie SSH honeypot for trapping attackers, and auditd for enhanced endpoint monitoring. Implemented custom detection rules, active response, and attack simulations &mdash; with findings mapped to the MITRE ATT&amp;CK framework &mdash; to gain hands-on experience with core SOC capabilities in a controlled environment.</div>
+        <div class="tags">
+          <span class="tag">Wazuh SIEM</span><span class="tag">Cowrie Honeypot</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">Ubuntu</span><span class="tag">auditd</span><span class="tag">SOC</span><span class="tag">Threat Detection</span><span class="tag">Active Response</span>
+        </div>
+      </div>
+
+      <div class="ongoing-card fade-in">
+        <div class="ongoing-badge">In Progress</div>
+        <div class="ongoing-title">Wazuh Threat Detection Lab</div>
+        <div class="ongoing-desc">A lab-based SOC simulation using Wazuh SIEM/XDR to detect real-world attack scenarios including database exfiltration, credential theft, and insider enumeration across a virtualised environment. Custom detection rules, active response, and full incident timelines documented across multiple exercises.</div>
+        <div class="tags">
+          <span class="tag">Wazuh</span><span class="tag">SIEM</span><span class="tag">XDR</span><span class="tag">SOC</span><span class="tag">Threat Detection</span><span class="tag">Incident Response</span><span class="tag">Log Analysis</span>
+        </div>
+        <a href="https://github.com/ramyaradjesh/Wazuh-Threat-detection-Project" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,229,160,0.3);padding-bottom:1px;">
+          <i class="fa-brands fa-github"></i> View on GitHub &nbsp;&#8599;
+        </a>
+      </div>
 
       <div class="ongoing-card fade-in">
         <div class="ongoing-badge">In Progress</div>
@@ -1396,18 +1517,93 @@ nav {
         </div>
       </div>
 
-      <div class="ongoing-card fade-in" style="border-color:rgba(255,82,0,0.5);box-shadow:0 0 20px rgba(255,82,0,0.08);">
-        <div class="ongoing-badge" style="background:rgba(255,82,0,0.15);">&#9632; Updated &mdash; 29 Mar 2026</div>
-        <div class="ongoing-title">WAZUH &mdash; Threat Detection</div>
-        <div class="ongoing-desc">Deploying and configuring Wazuh SIEM for hands-on threat detection, log analysis, and security monitoring. <strong style="color:#ff6b35;">Incident Report 1 now published</strong> &mdash; covering SOC alert triage, rule correlation, log investigation, and full incident timeline reconstruction. Ongoing: rule tuning, agent deployment, and alerting pipelines.</div>
-        <div class="tags">
-          <span class="tag">Wazuh</span><span class="tag">SIEM</span><span class="tag">Incident Report</span><span class="tag">SOC</span><span class="tag">Threat Detection</span><span class="tag">Log Analysis</span>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIUM WRITE-UPS -->
+<section id="medium">
+  <div class="section-inner">
+    <div class="section-label" style="color:#00ab6c;border-color:rgba(0,171,108,0.3);background:rgba(0,171,108,0.07);">Medium Write-Ups</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+      <svg viewBox="0 0 1043.63 592.71" style="height:26px;width:auto;fill:#00ab6c;opacity:0.85;flex-shrink:0;" xmlns="http://www.w3.org/2000/svg"><g><path d="M588.67 296.36c0 163.67-131.78 296.35-294.33 296.35S0 460 0 296.36 131.78 0 294.34 0s294.33 132.69 294.33 296.36M911.56 296.36c0 154.06-65.89 279-147.17 279s-147.17-124.94-147.17-279 65.88-279 147.17-279 147.17 124.9 147.17 279M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.91-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.9 51.76 249.94"/></g></svg>
+      <h2 style="margin-bottom:0;">CTF Write-Ups on Medium</h2>
+    </div>
+    <p class="section-subtitle">Detailed walkthroughs of TryHackMe rooms and CTF challenges &mdash; documenting methodology, tools, and key takeaways.</p>
+
+    <div class="ongoing-grid" style="margin-top:28px;">
+
+      <div class="ongoing-card fade-in" style="border-color:var(--border);">
+        <div class="ongoing-badge" style="color:#00ab6c;background:rgba(0,171,108,0.06);border-color:rgba(0,171,108,0.2);">
+          <span style="width:5px;height:5px;border-radius:50%;background:#00ab6c;display:inline-block;"></span>
+          Write-Up &middot; TryHackMe &middot; Linux
         </div>
-        <a href="https://github.com/ramyaradjesh?tab=repositories" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(255,82,0,0.3);padding-bottom:1px;">
-          <i class="fa-brands fa-github"></i> View Incident Report on GitHub &nbsp;&#8599;
+        <div class="ongoing-title">Billing &mdash; TryHackMe</div>
+        <div class="ongoing-desc">A Linux-based room exploring billing system vulnerabilities. Walkthrough covers service enumeration, privilege escalation via misconfigured SUID binaries, and extracting flags through system misconfigurations on a realistic target machine.</div>
+        <div class="tags">
+          <span class="tag">Linux</span><span class="tag">Privilege Escalation</span><span class="tag">Enumeration</span><span class="tag">SUID</span><span class="tag">TryHackMe</span>
+        </div>
+        <a href="https://medium.com/@ramya15112000/billing-tryhackme-ramya-radjesh-2fa9fc362f08" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:#00ab6c;text-decoration:none;border-bottom:1px solid rgba(0,171,108,0.3);padding-bottom:1px;">
+          <svg viewBox="0 0 1043.63 592.71" style="height:10px;width:auto;fill:#00ab6c;" xmlns="http://www.w3.org/2000/svg"><g><path d="M588.67 296.36c0 163.67-131.78 296.35-294.33 296.35S0 460 0 296.36 131.78 0 294.34 0s294.33 132.69 294.33 296.36M911.56 296.36c0 154.06-65.89 279-147.17 279s-147.17-124.94-147.17-279 65.88-279 147.17-279 147.17 124.9 147.17 279M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.91-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.9 51.76 249.94"/></g></svg>
+          Read on Medium &nbsp;&#8599;
         </a>
       </div>
 
+      <div class="ongoing-card fade-in" style="border-color:var(--border);">
+        <div class="ongoing-badge" style="color:#00ab6c;background:rgba(0,171,108,0.06);border-color:rgba(0,171,108,0.2);">
+          <span style="width:5px;height:5px;border-radius:50%;background:#00ab6c;display:inline-block;"></span>
+          Write-Up &middot; TryHackMe &middot; Forensics
+        </div>
+        <div class="ongoing-title">Disgruntled &mdash; Linux Forensic Investigation</div>
+        <div class="ongoing-desc">A digital forensics room simulating an insider threat scenario. Covers bash history analysis, cron job inspection, log investigation, and reconstructing a full attacker timeline from artefacts left behind on a compromised Linux system.</div>
+        <div class="tags">
+          <span class="tag">Digital Forensics</span><span class="tag">Linux</span><span class="tag">Insider Threat</span><span class="tag">Log Analysis</span><span class="tag">TryHackMe</span>
+        </div>
+        <a href="https://medium.com/@ramya15112000/disgruntled-linux-forensic-investigation-ramya-radjesh-thm-bedd4114a34b" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:#00ab6c;text-decoration:none;border-bottom:1px solid rgba(0,171,108,0.3);padding-bottom:1px;">
+          <svg viewBox="0 0 1043.63 592.71" style="height:10px;width:auto;fill:#00ab6c;" xmlns="http://www.w3.org/2000/svg"><g><path d="M588.67 296.36c0 163.67-131.78 296.35-294.33 296.35S0 460 0 296.36 131.78 0 294.34 0s294.33 132.69 294.33 296.36M911.56 296.36c0 154.06-65.89 279-147.17 279s-147.17-124.94-147.17-279 65.88-279 147.17-279 147.17 124.9 147.17 279M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.91-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.9 51.76 249.94"/></g></svg>
+          Read on Medium &nbsp;&#8599;
+        </a>
+      </div>
+
+      <div class="ongoing-card fade-in" style="border-color:var(--border);">
+        <div class="ongoing-badge" style="color:#00ab6c;background:rgba(0,171,108,0.06);border-color:rgba(0,171,108,0.2);">
+          <span style="width:5px;height:5px;border-radius:50%;background:#00ab6c;display:inline-block;"></span>
+          Write-Up &middot; TryHackMe &middot; Web
+        </div>
+        <div class="ongoing-title">Pickle Rick &mdash; TryHackMe</div>
+        <div class="ongoing-desc">A beginner-friendly web exploitation room. Walkthrough covers directory and source-code enumeration, command injection via a web panel, and chained privilege escalation to retrieve all three hidden ingredients across the target system.</div>
+        <div class="tags">
+          <span class="tag">Web Exploitation</span><span class="tag">Command Injection</span><span class="tag">Enumeration</span><span class="tag">Privilege Escalation</span><span class="tag">TryHackMe</span>
+        </div>
+        <a href="https://medium.com/@ramya15112000/pickle-rick-tryhackme-ramya-radjesh-4897f092923a" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:#00ab6c;text-decoration:none;border-bottom:1px solid rgba(0,171,108,0.3);padding-bottom:1px;">
+          <svg viewBox="0 0 1043.63 592.71" style="height:10px;width:auto;fill:#00ab6c;" xmlns="http://www.w3.org/2000/svg"><g><path d="M588.67 296.36c0 163.67-131.78 296.35-294.33 296.35S0 460 0 296.36 131.78 0 294.34 0s294.33 132.69 294.33 296.36M911.56 296.36c0 154.06-65.89 279-147.17 279s-147.17-124.94-147.17-279 65.88-279 147.17-279 147.17 124.9 147.17 279M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.91-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.9 51.76 249.94"/></g></svg>
+          Read on Medium &nbsp;&#8599;
+        </a>
+      </div>
+
+      <div class="ongoing-card fade-in" style="border-color:var(--border);">
+        <div class="ongoing-badge" style="color:#00ab6c;background:rgba(0,171,108,0.06);border-color:rgba(0,171,108,0.2);">
+          <span style="width:5px;height:5px;border-radius:50%;background:#00ab6c;display:inline-block;"></span>
+          Write-Up &middot; TryHackMe &middot; OSINT
+        </div>
+        <div class="ongoing-title">D&eacute;j&agrave; Vu &mdash; TryHackMe</div>
+        <div class="ongoing-desc">An OSINT and investigation room requiring open-source intelligence gathering, reverse image search, metadata extraction, and geolocation techniques to piece together a narrative and uncover hidden details across multiple public sources.</div>
+        <div class="tags">
+          <span class="tag">OSINT</span><span class="tag">Geolocation</span><span class="tag">Metadata</span><span class="tag">Image Analysis</span><span class="tag">TryHackMe</span>
+        </div>
+        <a href="https://medium.com/@ramya15112000/tryhackme-d%C3%A9j%C3%A0-vu-ramya-radjesh-bf05c5dbf41d" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:#00ab6c;text-decoration:none;border-bottom:1px solid rgba(0,171,108,0.3);padding-bottom:1px;">
+          <svg viewBox="0 0 1043.63 592.71" style="height:10px;width:auto;fill:#00ab6c;" xmlns="http://www.w3.org/2000/svg"><g><path d="M588.67 296.36c0 163.67-131.78 296.35-294.33 296.35S0 460 0 296.36 131.78 0 294.34 0s294.33 132.69 294.33 296.36M911.56 296.36c0 154.06-65.89 279-147.17 279s-147.17-124.94-147.17-279 65.88-279 147.17-279 147.17 124.9 147.17 279M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.91-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.9 51.76 249.94"/></g></svg>
+          Read on Medium &nbsp;&#8599;
+        </a>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:32px;">
+      <a href="https://medium.com/@ramya15112000" target="_blank" class="btn-outline" style="font-size:10px;letter-spacing:1.5px;">
+        <svg viewBox="0 0 1043.63 592.71" style="height:11px;width:auto;fill:currentColor;margin-right:6px;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg"><g><path d="M588.67 296.36c0 163.67-131.78 296.35-294.33 296.35S0 460 0 296.36 131.78 0 294.34 0s294.33 132.69 294.33 296.36M911.56 296.36c0 154.06-65.89 279-147.17 279s-147.17-124.94-147.17-279 65.88-279 147.17-279 147.17 124.9 147.17 279M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.91-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.9 51.76 249.94"/></g></svg>
+        View All on Medium &#8599;
+      </a>
     </div>
   </div>
 </section>
@@ -1750,6 +1946,26 @@ window.addEventListener('resize', () => { resize(); });
 draw();
 </script>
 
+<script>
+// Auto-rotating ticker for new projects banner
+(function(){
+  const projects = [
+    'Antivirus Simulation \u2014 Signature Scanner + VirusTotal',
+    'SOC Home Lab \u2014 Honeypot & MITRE ATT\u0026CK Mapping'
+  ];
+  let idx = 0;
+  const el = document.getElementById('new-proj-ticker');
+  if(!el) return;
+  setInterval(function(){
+    el.style.opacity = '0';
+    setTimeout(function(){
+      idx = (idx + 1) % projects.length;
+      el.textContent = projects[idx];
+      el.style.opacity = '1';
+    }, 500);
+  }, 3500);
+})();
+</script>
 </main><!-- end #main-content -->
 </div><!-- end #app-layout -->
 
