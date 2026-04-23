@@ -12,18 +12,6 @@
   gtag('js', new Date());
   gtag('config', 'G-CNJC12P0YM');
 </script>
-<!-- Open Graph / LinkedIn / Twitter Card -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ramyaradjesh.github.io/">
-<meta property="og:title" content="Ramya Radjesh — Cybersecurity Portfolio">
-<meta property="og:description" content="Cybersecurity Graduate | SOC Analyst | Threat Intelligence | Open to Work & Travel">
-<meta property="og:image" content="https://ramyaradjesh.github.io/thumbnail.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ramya Radjesh — Cybersecurity Portfolio">
-<meta name="twitter:description" content="Cybersecurity Graduate | SOC Analyst | Threat Intelligence | Open to Work & Travel">
-<meta name="twitter:image" content="https://ramyaradjesh.github.io/thumbnail.png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -496,8 +484,42 @@ h1 .last{color:var(--accent)}
 .live-box.proj-box .live-box-dot { background:var(--purple); box-shadow:0 0 6px var(--purple); }
 .live-box.proj-box .live-box-label { color:var(--purple); }
 .live-box.proj-box:hover { border-color:rgba(168,85,247,0.5); background:rgba(168,85,247,0.07); box-shadow:0 8px 24px rgba(168,85,247,0.15); }
+.live-strip-track-wrapper {
+  flex:1;
+  overflow:hidden;
+  position:relative;
+  min-width:0;
+}
+.live-strip-track-wrapper::before,
+.live-strip-track-wrapper::after {
+  content:'';
+  position:absolute;
+  top:0;bottom:0;width:40px;z-index:2;pointer-events:none;
+}
+.live-strip-track-wrapper::before {
+  left:0;
+  background:linear-gradient(90deg,rgba(4,8,15,0.95),transparent);
+}
+.live-strip-track-wrapper::after {
+  right:0;
+  background:linear-gradient(-90deg,rgba(4,8,15,0.95),transparent);
+}
+.live-strip-track {
+  display:flex;
+  gap:12px;
+  width:max-content;
+  animation:liveScroll 28s linear infinite;
+  align-items:center;
+}
+.live-strip-track:hover {
+  animation-play-state:paused;
+}
+@keyframes liveScroll {
+  0%   { transform:translateX(0); }
+  100% { transform:translateX(-50%); }
+}
 .live-date {
-  margin-left:auto;
+  margin-left:12px;
   font-size:9px; letter-spacing:2px;
   color:var(--muted); flex-shrink:0;
   font-family:'DM Mono',monospace;
@@ -1173,7 +1195,7 @@ nav {
     <a href="#education" class="sb-link"><i class="fa-solid fa-graduation-cap"></i>Education</a>
     <a href="#contact" class="sb-link"><i class="fa-solid fa-satellite-dish"></i>Contact</a>
     <div class="sb-section-title" style="margin-top:8px">// external</div>
-    <a href="https://ramyaradjesh.github.io/Ramya_Radjesh_Resume.pdf" target="_blank" class="sb-link"><i class="fa-solid fa-file-pdf"></i>Resume ↗</a>
+    <a href="https://ramyaradjesh.github.io/RADJESH_Ramya_Resume.pdf" target="_blank" class="sb-link"><i class="fa-solid fa-file-pdf"></i>Resume ↗</a>
     <a href="https://github.com/ramyaradjesh/" target="_blank" class="sb-link"><i class="fa-brands fa-github"></i>GitHub ↗</a>
     <a href="https://www.linkedin.com/in/ramya-radjesh/" target="_blank" class="sb-link"><i class="fa-brands fa-linkedin"></i>LinkedIn ↗</a>
   </nav>
@@ -1190,37 +1212,69 @@ nav {
 <div id="live-strip">
   <div class="live-strip-label">Today's Intel</div>
 
-  <!-- BOX 1: THM AI Security Path --> 
-  <a href="https://tryhackme.com/path/outline/aisecurity"
-     target="_blank" class="live-box ctf-box">
-    <span class="live-box-dot"></span>
-    <span class="live-box-content">
-      <span class="live-box-label">Learning Path &middot; TryHackMe</span>
-      <span class="live-box-title">AI Security Path &mdash; In Progress</span>
-    </span>
-  </a>
+  <div class="live-strip-track-wrapper">
+    <div class="live-strip-track" id="live-strip-track">
 
-  <!-- BOX 2: News 1 here -->
-  <a href="https://thehackernews.com/2026/04/5-places-where-mature-socs-keep-mttr.html"
-     target="_blank" class="live-box news-box">
-    <span class="live-box-dot"></span>
-    <span class="live-box-content">
-      <span class="live-box-label">News &middot; The Hacker News</span>
-      <span class="live-box-title">5 Places Where Mature SOCs Keep MTTR Fast and Others Waste Time</span>
-    </span>
-  </a>
+      <!-- BOX 1: THM AI Security Path --> 
+      <a href="https://tryhackme.com/path/outline/aisecurity"
+         target="_blank" class="live-box ctf-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">Learning Path &middot; TryHackMe</span>
+          <span class="live-box-title">AI Security Path &mdash; In Progress</span>
+        </span>
+      </a>
 
-  <!-- BOX 3: News 2 here -->
-  <a href="https://thehackernews.com/2026/04/mirax-android-rat-turns-devices-into.html"
-     target="_blank" class="live-box news-box">
-    <span class="live-box-dot"></span>
-    <span class="live-box-content">
-      <span class="live-box-label">News &middot; The Hacker News</span>
-      <span class="live-box-title">Mirax Android RAT Turns Devices into SOCKS5 Proxies, Reaching 220,000 via Meta Ads</span>
-    </span>
-  </a>
+      <!-- BOX 2: News 1 here -->
+      <a href="https://thehackernews.com/2026/04/harvester-deploys-linux-gogra-backdoor.html"
+         target="_blank" class="live-box news-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">News &middot; The Hacker News</span>
+          <span class="live-box-title">Harvester Deploys Linux GoGra Backdoor via Microsoft Graph API</span>
+        </span>
+      </a>
 
-  <div class="live-date" id="ls-date">22 April 2026</div>
+      <!-- BOX 3: News 2 here -->
+      <a href="https://www.reco.ai/blog/anthropic-wont-let-you-run-mythos"
+         target="_blank" class="live-box news-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">News &middot; Reco.ai</span>
+          <span class="live-box-title">Anthropic Won't Let You Run Mythos — But Claude Is Already in Your Salesforce</span>
+        </span>
+      </a>
+
+      <!-- DUPLICATE for seamless loop -->
+      <a href="https://tryhackme.com/path/outline/aisecurity"
+         target="_blank" class="live-box ctf-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">Learning Path &middot; TryHackMe</span>
+          <span class="live-box-title">AI Security Path &mdash; In Progress</span>
+        </span>
+      </a>
+      <a href="https://thehackernews.com/2026/04/harvester-deploys-linux-gogra-backdoor.html"
+         target="_blank" class="live-box news-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">News &middot; The Hacker News</span>
+          <span class="live-box-title">Harvester Deploys Linux GoGra Backdoor via Microsoft Graph API</span>
+        </span>
+      </a>
+      <a href="https://www.reco.ai/blog/anthropic-wont-let-you-run-mythos"
+         target="_blank" class="live-box news-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">News &middot; Reco.ai</span>
+          <span class="live-box-title">Anthropic Won't Let You Run Mythos — But Claude Is Already in Your Salesforce</span>
+        </span>
+      </a>
+
+    </div><!-- end .live-strip-track -->
+  </div><!-- end .live-strip-track-wrapper -->
+
+  <div class="live-date" id="ls-date">23 April 2026</div>
 </div>
 
 <nav>
@@ -1265,7 +1319,7 @@ nav {
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">Get in Touch</a>
         <a href="#ongoing" class="btn-outline">View Projects</a>
-        <a href="https://ramyaradjesh.github.io/Ramya_Radjesh_Resume.pdf" target="_blank" class="btn-outline">Resume &nbsp;&#8599;</a>
+        <a href="https://ramyaradjesh.github.io/RADJESH_Ramya_Resume.pdf" target="_blank" class="btn-outline">Resume &nbsp;&#8599;</a>
       </div>
       <div class="hero-info-lines" style="margin-top:24px;font-family:'DM Mono',monospace;font-size:11px;line-height:2.0;">
         <div><span style="color:var(--muted);letter-spacing:1px;">Focus:</span> <span style="color:var(--accent);">VAPT, SOC, Network Security</span></div>
@@ -1341,7 +1395,7 @@ nav {
     <div class="section-label">Today's Activity</div>
     <div class="daily-header-row">
       <h2>Daily Learning Feed</h2>
-      <div class="daily-timestamp">Updated: 22 April 2026</div>
+      <div class="daily-timestamp">Updated: 23 April 2026</div>
     </div>
     <div class="daily-grid fade-in">
 
@@ -1392,29 +1446,29 @@ nav {
       </div>
 
       <!-- NEWS CARD 1 -->
-      <div class="daily-card news" data-ticket="NEWS-0422A">
+      <div class="daily-card news" data-ticket="NEWS-0423A">
         <div class="daily-card-stripe"></div>
         <div class="daily-card-body">
           <div class="daily-card-platform">
             <div class="daily-platform-icon">THN</div>
             <div class="daily-platform-info">
               <span class="daily-platform-name">The Hacker News</span>
-              <span class="daily-platform-type">SOC Operations &middot; Incident Response</span>
+              <span class="daily-platform-type">APT &middot; Linux Malware</span>
             </div>
           </div>
-          <div class="daily-card-title">5 Places Where Mature SOCs Keep MTTR Fast and Others Waste Time</div>
-          <div class="daily-card-meta">22 April 2026</div>
-          <div class="daily-card-desc">The Hacker News breaks down the five operational areas where mature Security Operations Centres consistently outperform their peers on Mean Time to Respond (MTTR) — covering alert triage, tool integration, runbook automation, analyst workflows, and cross-team escalation. A practical benchmark for SOC teams looking to eliminate bottlenecks and cut detection-to-response gaps.</div>
+          <div class="daily-card-title">Harvester Deploys Linux GoGra Backdoor in South Asia Using Microsoft Graph API</div>
+          <div class="daily-card-meta">23 April 2026</div>
+          <div class="daily-card-desc">The Hacker News reports on Harvester, an APT group now targeting South Asian organisations with a Linux variant of the GoGra backdoor. The threat actor abuses Microsoft Graph API for stealthy C2 communication, blending malicious traffic into legitimate Microsoft cloud services to evade detection — a significant escalation in tradecraft for this actor previously linked to Windows-focused espionage campaigns.</div>
           <div class="daily-card-tags">
-            <span class="daily-tag">SOC</span>
-            <span class="daily-tag">MTTR</span>
-            <span class="daily-tag">Incident Response</span>
-            <span class="daily-tag">Alert Triage</span>
-            <span class="daily-tag">Automation</span>
+            <span class="daily-tag">APT</span>
+            <span class="daily-tag">Linux Malware</span>
+            <span class="daily-tag">Backdoor</span>
+            <span class="daily-tag">Microsoft Graph API</span>
+            <span class="daily-tag">C2</span>
           </div>
         </div>
         <div class="daily-card-footer">
-          <a href="https://thehackernews.com/2026/04/5-places-where-mature-socs-keep-mttr.html" target="_blank" class="daily-card-link">
+          <a href="https://thehackernews.com/2026/04/harvester-deploys-linux-gogra-backdoor.html" target="_blank" class="daily-card-link">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article
           </a>
           <span class="daily-solved-badge">&#9632; News</span>
@@ -1422,29 +1476,29 @@ nav {
       </div>
 
       <!-- NEWS CARD 2 -->
-      <div class="daily-card news" data-ticket="NEWS-0422B">
+      <div class="daily-card news" data-ticket="NEWS-0423B">
         <div class="daily-card-stripe"></div>
         <div class="daily-card-body">
           <div class="daily-card-platform">
-            <div class="daily-platform-icon">THN</div>
+            <div class="daily-platform-icon">REC</div>
             <div class="daily-platform-info">
-              <span class="daily-platform-name">The Hacker News</span>
-              <span class="daily-platform-type">Android Malware &middot; RAT</span>
+              <span class="daily-platform-name">Reco.ai</span>
+              <span class="daily-platform-type">AI Security &middot; SaaS Risk</span>
             </div>
           </div>
-          <div class="daily-card-title">Mirax Android RAT Turns Devices into SOCKS5 Proxies, Reaching 220,000 via Meta Ads</div>
-          <div class="daily-card-meta">22 April 2026</div>
-          <div class="daily-card-desc">The Hacker News reports on Mirax, a newly discovered Android Remote Access Trojan that silently converts infected devices into SOCKS5 proxies for traffic routing. Distributed at scale through malicious Meta ad campaigns, the malware has already reached over 220,000 victims — enabling threat actors to anonymise operations and evade detection by proxying traffic through legitimate-looking endpoints.</div>
+          <div class="daily-card-title">Anthropic Won't Let You Run Mythos — But Claude Is Already in Your Salesforce</div>
+          <div class="daily-card-meta">23 April 2026</div>
+          <div class="daily-card-desc">Reco.ai explores the disconnect between Anthropic's published safety policies — which block AI agents like Mythos from running autonomously — and the reality that Claude is already embedded inside enterprise SaaS platforms including Salesforce, often without security teams realising. A sharp reminder that AI governance cannot rely solely on vendor restrictions when shadow AI integrations proliferate at scale.</div>
           <div class="daily-card-tags">
-            <span class="daily-tag">Android Malware</span>
-            <span class="daily-tag">RAT</span>
-            <span class="daily-tag">SOCKS5 Proxy</span>
-            <span class="daily-tag">Meta Ads</span>
-            <span class="daily-tag">Mobile Threats</span>
+            <span class="daily-tag">AI Security</span>
+            <span class="daily-tag">SaaS Risk</span>
+            <span class="daily-tag">Claude</span>
+            <span class="daily-tag">Anthropic</span>
+            <span class="daily-tag">Shadow AI</span>
           </div>
         </div>
         <div class="daily-card-footer">
-          <a href="https://thehackernews.com/2026/04/mirax-android-rat-turns-devices-into.html" target="_blank" class="daily-card-link">
+          <a href="https://www.reco.ai/blog/anthropic-wont-let-you-run-mythos" target="_blank" class="daily-card-link">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article
           </a>
           <span class="daily-solved-badge">&#9632; News</span>
