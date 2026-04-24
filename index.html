@@ -393,7 +393,7 @@ h1 .last{color:var(--accent)}
   background: linear-gradient(135deg, rgba(0,229,160,0.08) 0%, rgba(4,8,15,0.99) 50%, rgba(255,82,0,0.05) 100%);
   border-bottom: 1px solid rgba(0,229,160,0.25);
   border-top: 1px solid rgba(0,229,160,0.15);
-  padding: 10px 80px;
+  padding: 10px 0 10px 80px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -402,11 +402,35 @@ h1 .last{color:var(--accent)}
   z-index: 90;
   backdrop-filter: blur(20px);
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow: hidden;
   scrollbar-width: none;
   box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(0,229,160,0.06);
 }
 #live-strip::-webkit-scrollbar { display:none; }
+
+/* Ticker track for auto-scrolling news boxes */
+.ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  animation: tickerScroll 28s linear infinite;
+  will-change: transform;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-wrapper {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+}
 /* animated scan line on strip */
 #live-strip::before {
   content:'';
@@ -484,42 +508,8 @@ h1 .last{color:var(--accent)}
 .live-box.proj-box .live-box-dot { background:var(--purple); box-shadow:0 0 6px var(--purple); }
 .live-box.proj-box .live-box-label { color:var(--purple); }
 .live-box.proj-box:hover { border-color:rgba(168,85,247,0.5); background:rgba(168,85,247,0.07); box-shadow:0 8px 24px rgba(168,85,247,0.15); }
-.live-strip-track-wrapper {
-  flex:1;
-  overflow:hidden;
-  position:relative;
-  min-width:0;
-}
-.live-strip-track-wrapper::before,
-.live-strip-track-wrapper::after {
-  content:'';
-  position:absolute;
-  top:0;bottom:0;width:40px;z-index:2;pointer-events:none;
-}
-.live-strip-track-wrapper::before {
-  left:0;
-  background:linear-gradient(90deg,rgba(4,8,15,0.95),transparent);
-}
-.live-strip-track-wrapper::after {
-  right:0;
-  background:linear-gradient(-90deg,rgba(4,8,15,0.95),transparent);
-}
-.live-strip-track {
-  display:flex;
-  gap:12px;
-  width:max-content;
-  animation:liveScroll 28s linear infinite;
-  align-items:center;
-}
-.live-strip-track:hover {
-  animation-play-state:paused;
-}
-@keyframes liveScroll {
-  0%   { transform:translateX(0); }
-  100% { transform:translateX(-50%); }
-}
 .live-date {
-  margin-left:12px;
+  margin-left:auto;
   font-size:9px; letter-spacing:2px;
   color:var(--muted); flex-shrink:0;
   font-family:'DM Mono',monospace;
@@ -1212,69 +1202,77 @@ nav {
 <div id="live-strip">
   <div class="live-strip-label">Today's Intel</div>
 
-  <div class="live-strip-track-wrapper">
-    <div class="live-strip-track" id="live-strip-track">
+  <!-- BOX 1: THM AI Security Path --> 
+  <a href="https://tryhackme.com/path/outline/aisecurity"
+     target="_blank" class="live-box ctf-box">
+    <span class="live-box-dot"></span>
+    <span class="live-box-content">
+      <span class="live-box-label">Learning Path &middot; TryHackMe</span>
+      <span class="live-box-title">AI Security Path &mdash; In Progress</span>
+    </span>
+  </a>
 
-      <!-- BOX 1: THM AI Security Path --> 
-      <a href="https://tryhackme.com/path/outline/aisecurity"
-         target="_blank" class="live-box ctf-box">
-        <span class="live-box-dot"></span>
-        <span class="live-box-content">
-          <span class="live-box-label">Learning Path &middot; TryHackMe</span>
-          <span class="live-box-title">AI Security Path &mdash; In Progress</span>
-        </span>
-      </a>
-
-      <!-- BOX 2: News 1 here -->
-      <a href="https://thehackernews.com/2026/04/harvester-deploys-linux-gogra-backdoor.html"
+  <!-- BOX 2: News 1 here -->
+  <div class="ticker-wrapper">
+    <div class="ticker-track" id="ticker-track">
+      <a href="https://thehackernews.com/expert-insights/2026/04/why-your-backups-might-not-save-you.html"
          target="_blank" class="live-box news-box">
         <span class="live-box-dot"></span>
         <span class="live-box-content">
           <span class="live-box-label">News &middot; The Hacker News</span>
-          <span class="live-box-title">Harvester Deploys Linux GoGra Backdoor via Microsoft Graph API</span>
+          <span class="live-box-title">Why Your Backups Might Not Save You When Ransomware Hits</span>
         </span>
       </a>
 
       <!-- BOX 3: News 2 here -->
-      <a href="https://www.reco.ai/blog/anthropic-wont-let-you-run-mythos"
-         target="_blank" class="live-box news-box">
-        <span class="live-box-dot"></span>
-        <span class="live-box-content">
-          <span class="live-box-label">News &middot; Reco.ai</span>
-          <span class="live-box-title">Anthropic Won't Let You Run Mythos — But Claude Is Already in Your Salesforce</span>
-        </span>
-      </a>
-
-      <!-- DUPLICATE for seamless loop -->
-      <a href="https://tryhackme.com/path/outline/aisecurity"
-         target="_blank" class="live-box ctf-box">
-        <span class="live-box-dot"></span>
-        <span class="live-box-content">
-          <span class="live-box-label">Learning Path &middot; TryHackMe</span>
-          <span class="live-box-title">AI Security Path &mdash; In Progress</span>
-        </span>
-      </a>
-      <a href="https://thehackernews.com/2026/04/harvester-deploys-linux-gogra-backdoor.html"
+      <a href="https://thehackernews.com/2026/04/project-glasswing-proved-ai-can-find.html"
          target="_blank" class="live-box news-box">
         <span class="live-box-dot"></span>
         <span class="live-box-content">
           <span class="live-box-label">News &middot; The Hacker News</span>
-          <span class="live-box-title">Harvester Deploys Linux GoGra Backdoor via Microsoft Graph API</span>
+          <span class="live-box-title">Project Glasswing Proved AI Can Find the Bugs. Who's Going to Fix Them?</span>
         </span>
       </a>
-      <a href="https://www.reco.ai/blog/anthropic-wont-let-you-run-mythos"
+
+      <!-- BOX 4: News 3 here -->
+      <a href="https://thehackernews.com/2026/04/openai-launches-gpt-54-cyber-with.html"
          target="_blank" class="live-box news-box">
         <span class="live-box-dot"></span>
         <span class="live-box-content">
-          <span class="live-box-label">News &middot; Reco.ai</span>
-          <span class="live-box-title">Anthropic Won't Let You Run Mythos — But Claude Is Already in Your Salesforce</span>
+          <span class="live-box-label">News &middot; The Hacker News</span>
+          <span class="live-box-title">OpenAI Launches GPT-5.4-Cyber with Expanded Access for Security Teams</span>
         </span>
       </a>
 
-    </div><!-- end .live-strip-track -->
-  </div><!-- end .live-strip-track-wrapper -->
+      <!-- Duplicate set for seamless infinite loop -->
+      <a href="https://thehackernews.com/expert-insights/2026/04/why-your-backups-might-not-save-you.html"
+         target="_blank" class="live-box news-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">News &middot; The Hacker News</span>
+          <span class="live-box-title">Why Your Backups Might Not Save You When Ransomware Hits</span>
+        </span>
+      </a>
+      <a href="https://thehackernews.com/2026/04/project-glasswing-proved-ai-can-find.html"
+         target="_blank" class="live-box news-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">News &middot; The Hacker News</span>
+          <span class="live-box-title">Project Glasswing Proved AI Can Find the Bugs. Who's Going to Fix Them?</span>
+        </span>
+      </a>
+      <a href="https://thehackernews.com/2026/04/openai-launches-gpt-54-cyber-with.html"
+         target="_blank" class="live-box news-box">
+        <span class="live-box-dot"></span>
+        <span class="live-box-content">
+          <span class="live-box-label">News &middot; The Hacker News</span>
+          <span class="live-box-title">OpenAI Launches GPT-5.4-Cyber with Expanded Access for Security Teams</span>
+        </span>
+      </a>
+    </div>
+  </div>
 
-  <div class="live-date" id="ls-date">23 April 2026</div>
+  <div class="live-date" id="ls-date" style="margin-left:12px;margin-right:80px;flex-shrink:0;">24 April 2026</div>
 </div>
 
 <nav>
@@ -1395,7 +1393,7 @@ nav {
     <div class="section-label">Today's Activity</div>
     <div class="daily-header-row">
       <h2>Daily Learning Feed</h2>
-      <div class="daily-timestamp">Updated: 23 April 2026</div>
+      <div class="daily-timestamp">Updated: 24 April 2026</div>
     </div>
     <div class="daily-grid fade-in">
 
@@ -1446,29 +1444,29 @@ nav {
       </div>
 
       <!-- NEWS CARD 1 -->
-      <div class="daily-card news" data-ticket="NEWS-0423A">
+      <div class="daily-card news" data-ticket="NEWS-0424A">
         <div class="daily-card-stripe"></div>
         <div class="daily-card-body">
           <div class="daily-card-platform">
             <div class="daily-platform-icon">THN</div>
             <div class="daily-platform-info">
               <span class="daily-platform-name">The Hacker News</span>
-              <span class="daily-platform-type">APT &middot; Linux Malware</span>
+              <span class="daily-platform-type">Ransomware &middot; Backup Security</span>
             </div>
           </div>
-          <div class="daily-card-title">Harvester Deploys Linux GoGra Backdoor in South Asia Using Microsoft Graph API</div>
-          <div class="daily-card-meta">23 April 2026</div>
-          <div class="daily-card-desc">The Hacker News reports on Harvester, an APT group now targeting South Asian organisations with a Linux variant of the GoGra backdoor. The threat actor abuses Microsoft Graph API for stealthy C2 communication, blending malicious traffic into legitimate Microsoft cloud services to evade detection — a significant escalation in tradecraft for this actor previously linked to Windows-focused espionage campaigns.</div>
+          <div class="daily-card-title">Why Your Backups Might Not Save You When Ransomware Hits</div>
+          <div class="daily-card-meta">24 April 2026</div>
+          <div class="daily-card-desc">A deep-dive expert analysis on why traditional backup strategies routinely fail during ransomware attacks — covering backup compromise tactics, encryption of connected storage, delayed detonation techniques, and what a truly resilient recovery architecture needs to look like to withstand modern threat actors.</div>
           <div class="daily-card-tags">
-            <span class="daily-tag">APT</span>
-            <span class="daily-tag">Linux Malware</span>
-            <span class="daily-tag">Backdoor</span>
-            <span class="daily-tag">Microsoft Graph API</span>
-            <span class="daily-tag">C2</span>
+            <span class="daily-tag">Ransomware</span>
+            <span class="daily-tag">Backup Security</span>
+            <span class="daily-tag">Incident Response</span>
+            <span class="daily-tag">Data Recovery</span>
+            <span class="daily-tag">Resilience</span>
           </div>
         </div>
         <div class="daily-card-footer">
-          <a href="https://thehackernews.com/2026/04/harvester-deploys-linux-gogra-backdoor.html" target="_blank" class="daily-card-link">
+          <a href="https://thehackernews.com/expert-insights/2026/04/why-your-backups-might-not-save-you.html" target="_blank" class="daily-card-link">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article
           </a>
           <span class="daily-solved-badge">&#9632; News</span>
@@ -1476,29 +1474,59 @@ nav {
       </div>
 
       <!-- NEWS CARD 2 -->
-      <div class="daily-card news" data-ticket="NEWS-0423B">
+      <div class="daily-card news" data-ticket="NEWS-0424B">
         <div class="daily-card-stripe"></div>
         <div class="daily-card-body">
           <div class="daily-card-platform">
-            <div class="daily-platform-icon">REC</div>
+            <div class="daily-platform-icon">THN</div>
             <div class="daily-platform-info">
-              <span class="daily-platform-name">Reco.ai</span>
-              <span class="daily-platform-type">AI Security &middot; SaaS Risk</span>
+              <span class="daily-platform-name">The Hacker News</span>
+              <span class="daily-platform-type">AI Security &middot; Vulnerability Research</span>
             </div>
           </div>
-          <div class="daily-card-title">Anthropic Won't Let You Run Mythos — But Claude Is Already in Your Salesforce</div>
-          <div class="daily-card-meta">23 April 2026</div>
-          <div class="daily-card-desc">Reco.ai explores the disconnect between Anthropic's published safety policies — which block AI agents like Mythos from running autonomously — and the reality that Claude is already embedded inside enterprise SaaS platforms including Salesforce, often without security teams realising. A sharp reminder that AI governance cannot rely solely on vendor restrictions when shadow AI integrations proliferate at scale.</div>
+          <div class="daily-card-title">Project Glasswing Proved AI Can Find the Bugs. Who's Going to Fix Them?</div>
+          <div class="daily-card-meta">24 April 2026</div>
+          <div class="daily-card-desc">Project Glasswing demonstrated that AI-driven vulnerability discovery can surface bugs faster than traditional security research — but raises a critical follow-on question: with AI finding flaws at scale, the bottleneck has shifted to human capacity to triage, patch, and remediate. The article examines the gap between AI-assisted detection and real-world fix velocity.</div>
           <div class="daily-card-tags">
             <span class="daily-tag">AI Security</span>
-            <span class="daily-tag">SaaS Risk</span>
-            <span class="daily-tag">Claude</span>
-            <span class="daily-tag">Anthropic</span>
-            <span class="daily-tag">Shadow AI</span>
+            <span class="daily-tag">Vulnerability Research</span>
+            <span class="daily-tag">Bug Discovery</span>
+            <span class="daily-tag">Patch Management</span>
+            <span class="daily-tag">Automation</span>
           </div>
         </div>
         <div class="daily-card-footer">
-          <a href="https://www.reco.ai/blog/anthropic-wont-let-you-run-mythos" target="_blank" class="daily-card-link">
+          <a href="https://thehackernews.com/2026/04/project-glasswing-proved-ai-can-find.html" target="_blank" class="daily-card-link">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article
+          </a>
+          <span class="daily-solved-badge">&#9632; News</span>
+        </div>
+      </div>
+
+      <!-- NEWS CARD 3 -->
+      <div class="daily-card news" data-ticket="NEWS-0424C">
+        <div class="daily-card-stripe"></div>
+        <div class="daily-card-body">
+          <div class="daily-card-platform">
+            <div class="daily-platform-icon">THN</div>
+            <div class="daily-platform-info">
+              <span class="daily-platform-name">The Hacker News</span>
+              <span class="daily-platform-type">AI Tools &middot; Offensive Security</span>
+            </div>
+          </div>
+          <div class="daily-card-title">OpenAI Launches GPT-5.4-Cyber with Expanded Access for Security Teams</div>
+          <div class="daily-card-meta">24 April 2026</div>
+          <div class="daily-card-desc">OpenAI has released GPT-5.4-Cyber, a specialised model variant designed for cybersecurity use cases with expanded access for security teams. The model is tuned for threat analysis, vulnerability triage, and offensive security research — raising both excitement around AI-assisted defence capabilities and debate over dual-use risks in the security community.</div>
+          <div class="daily-card-tags">
+            <span class="daily-tag">OpenAI</span>
+            <span class="daily-tag">GPT-5.4-Cyber</span>
+            <span class="daily-tag">AI in Security</span>
+            <span class="daily-tag">Threat Analysis</span>
+            <span class="daily-tag">Dual-Use AI</span>
+          </div>
+        </div>
+        <div class="daily-card-footer">
+          <a href="https://thehackernews.com/2026/04/openai-launches-gpt-54-cyber-with.html" target="_blank" class="daily-card-link">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Read Article
           </a>
           <span class="daily-solved-badge">&#9632; News</span>
