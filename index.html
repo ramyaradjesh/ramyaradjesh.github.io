@@ -414,15 +414,8 @@ h1 .last{color:var(--accent)}
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
-  animation: tickerScroll 28s linear infinite;
-  will-change: transform;
 }
-.ticker-track:hover {
-  animation-play-state: paused;
 }
-@keyframes tickerScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
 }
 .ticker-wrapper {
   display: flex;
