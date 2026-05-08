@@ -1147,6 +1147,9 @@ nav {
   color:#00ab6c;font-family:'DM Mono',monospace;
   border-top:1px solid var(--border);padding-top:12px;margin-top:auto;
 }
+.swipe-hint {
+  display: none;
+}
 /* ── Mobile: swipeable banner ── */
 @media (max-width: 768px) {
   #live-strip {
@@ -1193,19 +1196,20 @@ nav {
     grid-template-columns: 1fr;
   }
   #live-strip + .swipe-hint {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 0 2px 0;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-family: 'DM Mono', monospace;
-    opacity: 0.6;
-    animation: swipePulse 1.5s ease-in-out infinite;
-  }
+    .swipe-hint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0 2px 0;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  opacity: 0.6;
+  animation: swipePulse 1.5s ease-in-out infinite;
+}
 
   @keyframes swipePulse {
     0%, 100% { opacity: 0.3; }
