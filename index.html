@@ -1146,7 +1146,52 @@ nav {
   color:#00ab6c;font-family:'DM Mono',monospace;
   border-top:1px solid var(--border);padding-top:12px;margin-top:auto;
 }
+/* ── Mobile: swipeable banner ── */
+@media (max-width: 768px) {
+  #live-strip {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 16px;
+    top: 56px;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
 
+  .ticker-wrapper {
+    display: contents;
+  }
+
+  .ticker-track {
+    display: contents;
+  }
+
+  .live-box {
+    scroll-snap-align: start;
+    flex: 0 0 78vw;
+    max-width: 78vw;
+    min-width: 0;
+    align-items: flex-start;
+  }
+
+  .live-box-title {
+    white-space: normal;
+    text-overflow: unset;
+    overflow: visible;
+    max-width: 100%;
+    font-size: 11px;
+  }
+
+  .live-strip-label,
+  .live-date {
+    display: none;
+  }
+
+  .daily-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
