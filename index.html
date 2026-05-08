@@ -1192,35 +1192,25 @@ nav {
   .daily-grid {
     grid-template-columns: 1fr;
   }
-}
-.swipe-hint {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: var(--accent);
-    font-size: 10px;
-    letter-spacing: 1.5px;
+    #live-strip::after { 
+    content: '← swipe →';
+    position: sticky;
+    right: 0;
+    bottom: 0;
+    font-size: 8px;
+    letter-spacing: 2px;
     text-transform: uppercase;
+    color: var(--accent);
     font-family: 'DM Mono', monospace;
-    animation: swipeHint 1.5s ease-in-out infinite;
+    background: rgba(4,8,15,0.85);
+    padding: 3px 10px;
     pointer-events: none;
+    flex-shrink: 0;
+    opacity: 0.7;
+    align-self: flex-end;
     white-space: nowrap;
   }
-
-  .swipe-hint::before {
-    content: '‹ ›';
-    font-size: 16px;
-    letter-spacing: -2px;
-  }
-
-  @keyframes swipeHint {
-    0%, 100% { opacity: 0.3; transform: translateY(-50%) translateX(0); }
-    50%       { opacity: 1;   transform: translateY(-50%) translateX(-4px); }
-  }
+}
 </style>
 </head>
 <body>
@@ -1298,7 +1288,6 @@ nav {
       </a>
 
   <div class="live-date" id="ls-date" style="margin-left:12px;margin-right:80px;flex-shrink:0;">8 May 2026</div>
-  <span class="swipe-hint">swipe</span>
 </div>
 
 <nav>
