@@ -1192,23 +1192,24 @@ nav {
   .daily-grid {
     grid-template-columns: 1fr;
   }
-    #live-strip::after { 
-    content: '← swipe →';
-    position: sticky;
-    right: 0;
-    bottom: 0;
-    font-size: 8px;
+  #live-strip + .swipe-hint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0 2px 0;
+    font-size: 9px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--accent);
     font-family: 'DM Mono', monospace;
-    background: rgba(4,8,15,0.85);
-    padding: 3px 10px;
-    pointer-events: none;
-    flex-shrink: 0;
-    opacity: 0.7;
-    align-self: flex-end;
-    white-space: nowrap;
+    opacity: 0.6;
+    animation: swipePulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes swipePulse {
+    0%, 100% { opacity: 0.3; }
+    50%       { opacity: 0.8; }
   }
 }
 </style>
@@ -1289,7 +1290,7 @@ nav {
 
   <div class="live-date" id="ls-date" style="margin-left:12px;margin-right:80px;flex-shrink:0;">8 May 2026</div>
 </div>
-
+<div class="swipe-hint">← swipe →</div> 
 <nav>
   <!-- Left: just the logo -->
   <a href="#hero" class="nav-logo-only">
