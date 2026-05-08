@@ -405,6 +405,7 @@ h1 .last{color:var(--accent)}
   overflow: hidden;
   scrollbar-width: none;
   box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(0,229,160,0.06);
+  position: relative;
 }
 #live-strip::-webkit-scrollbar { display:none; }
 
@@ -1192,6 +1193,34 @@ nav {
     grid-template-columns: 1fr;
   }
 }
+.swipe-hint {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    animation: swipeHint 1.5s ease-in-out infinite;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .swipe-hint::before {
+    content: '‹ ›';
+    font-size: 16px;
+    letter-spacing: -2px;
+  }
+
+  @keyframes swipeHint {
+    0%, 100% { opacity: 0.3; transform: translateY(-50%) translateX(0); }
+    50%       { opacity: 1;   transform: translateY(-50%) translateX(-4px); }
+  }
 </style>
 </head>
 <body>
@@ -1269,6 +1298,7 @@ nav {
       </a>
 
   <div class="live-date" id="ls-date" style="margin-left:12px;margin-right:80px;flex-shrink:0;">8 May 2026</div>
+  <span class="swipe-hint">swipe</span>
 </div>
 
 <nav>
