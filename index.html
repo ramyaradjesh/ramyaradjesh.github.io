@@ -1162,15 +1162,12 @@ nav {
     flex-wrap: nowrap;
     align-items: stretch;
   }
-
   .ticker-wrapper {
     display: contents;
   }
-
   .ticker-track {
     display: contents;
   }
-
   .live-box {
     scroll-snap-align: start;
     flex: 0 0 78vw;
@@ -1178,7 +1175,6 @@ nav {
     min-width: 0;
     align-items: flex-start;
   }
-
   .live-box-title {
     white-space: normal;
     text-overflow: unset;
@@ -1186,31 +1182,27 @@ nav {
     max-width: 100%;
     font-size: 11px;
   }
-
   .live-strip-label,
   .live-date {
     display: none;
   }
-
   .daily-grid {
     grid-template-columns: 1fr;
   }
-  #live-strip + .swipe-hint {
-    .swipe-hint {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 0 2px 0;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  font-family: 'DM Mono', monospace;
-  opacity: 0.6;
-  animation: swipePulse 1.5s ease-in-out infinite;
-}
-
+  .swipe-hint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0 2px 0;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    opacity: 0.6;
+    animation: swipePulse 1.5s ease-in-out infinite;
+  }
   @keyframes swipePulse {
     0%, 100% { opacity: 0.3; }
     50%       { opacity: 0.8; }
