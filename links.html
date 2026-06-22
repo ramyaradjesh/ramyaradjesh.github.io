@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramya Radjesh — Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Manrope:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --header-bg: #DD6B20;
+    --on-header-heading: #FFF8F0;
+    --on-header-strong: #2A1606;
+    --on-header-muted: rgba(42,22,6,0.72);
+
+    --body-bg: #F6F7FA;
+    --border: #DFE4EB;
+    --accent: #C75D1F;
+    --online: #19A974;
+    --text: #121821;
+    --text-muted: #5B6675;
+    --text-dim: #98A1AE;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background: var(--body-bg);
+    color: var(--text);
+    font-family: 'Manrope', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page{ max-width: 580px; margin: 0 auto; }
+
+  /* ---------- HEADER ---------- */
+  .header{
+    background: var(--header-bg);
+    background-image: radial-gradient(circle at 100% 0%, rgba(255,255,255,0.20), transparent 55%);
+    padding: 44px 28px 40px;
+  }
+
+  .status-flag{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--on-header-strong);
+    margin-bottom: 26px;
+  }
+  .status-flag .dot{
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--online);
+    box-shadow: 0 0 0 0 rgba(25,169,116,0.5);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%   { box-shadow: 0 0 0 0 rgba(25,169,116,0.45); }
+    70%  { box-shadow: 0 0 0 7px rgba(25,169,116,0); }
+    100% { box-shadow: 0 0 0 0 rgba(25,169,116,0); }
+  }
+  @media (prefers-reduced-motion: reduce){ .status-flag .dot{ animation: none; } }
+
+  h1{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 46px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+    color: var(--on-header-heading);
+    margin: 0 0 14px;
+  }
+
+  .role{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--on-header-strong);
+    margin: 0 0 20px;
+  }
+
+  .tagline{
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--on-header-muted);
+    margin: 0;
+    max-width: 440px;
+    font-weight: 600;
+  }
+
+  /* ---------- BODY / LINK LIST ---------- */
+  .body{ padding: 38px 28px 44px; }
+
+  .section-label{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 0 0 6px;
+  }
+
+  .links{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .link-row{
+    display: flex;
+    align-items: baseline;
+    gap: 22px;
+    text-decoration: none;
+    color: var(--text);
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .links .link-row:first-child{ border-top: 1px solid var(--border); margin-top: 18px; }
+
+  .index{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    transition: color 0.15s ease;
+  }
+
+  .link-row:hover .index{ color: var(--accent); }
+
+  .link-body{ flex: 1; min-width: 0; }
+
+  .tag{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 7px;
+  }
+
+  .link-name{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+    letter-spacing: -0.015em;
+    margin-bottom: 7px;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size 0.25s ease;
+  }
+
+  .link-row:hover .link-name{ background-size: 100% 2px; }
+
+  .link-desc{
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: 0.001em;
+  }
+
+  .arrow{
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-dim);
+    font-size: 20px;
+    flex-shrink: 0;
+    align-self: center;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .link-row:hover .arrow{ color: var(--accent); transform: translateX(4px); }
+
+  .link-row:focus-visible{ outline: 2px solid var(--accent); outline-offset: 6px; }
+
+  footer{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+  }
+  footer .dot{ width: 6px; height: 6px; border-radius: 50%; background: var(--online); }
+
+  @media (max-width: 380px){
+    h1{ font-size: 36px; }
+    .header{ padding: 36px 20px 32px; }
+    .body{ padding: 30px 20px 36px; }
+    .link-name{ font-size: 23px; }
+    .link-row{ gap: 14px; padding: 22px 0; }
+    .index{ font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="header">
+      <div class="status-flag"><span class="dot"></span>Active</div>
+      <h1>Ramya Radjesh</h1>
+      <p class="role">VAPT &amp; SOC Analyst</p>
+      <p class="tagline">
+        SOC analyst &amp; pentester bridging offense and defense — kernel-level detection with eBPF, threat hunting with Wazuh &amp; MITRE ATT&amp;CK.
+      </p>
+    </div>
+
+    <div class="body">
+      <p class="section-label">Find me here</p>
+
+      <div class="links">
+
+        <a class="link-row" href="https://www.linkedin.com/in/ramya-radjesh/" target="_blank" rel="noopener">
+          <span class="index">01</span>
+          <span class="link-body">
+            <span class="tag">NETWORK</span>
+            <span class="link-name">LinkedIn</span>
+            <span class="link-desc">Professional profile &amp; experience</span>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a class="link-row" href="https://ramyaradjesh.github.io" target="_blank" rel="noopener">
+          <span class="index">02</span>
+          <span class="link-body">
+            <span class="tag">PORTFOLIO</span>
+            <span class="link-name">Portfolio</span>
+            <span class="link-desc">Projects, case studies &amp; lab documentation</span>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a class="link-row" href="https://github.com/ramyaradjesh" target="_blank" rel="noopener">
+          <span class="index">03</span>
+          <span class="link-body">
+            <span class="tag">REPO</span>
+            <span class="link-name">GitHub</span>
+            <span class="link-desc">Security tooling, detection labs &amp; research code</span>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a class="link-row" href="https://medium.com/@ramya15112000" target="_blank" rel="noopener">
+          <span class="index">04</span>
+          <span class="link-body">
+            <span class="tag">WRITE-UPS</span>
+            <span class="link-name">Medium</span>
+            <span class="link-desc">Threat research notes &amp; technical writeups</span>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+
+      </div>
+
+      <footer><span class="dot"></span> profile active · India</footer>
+    </div>
+
+  </div>
+</body>
+</html>
