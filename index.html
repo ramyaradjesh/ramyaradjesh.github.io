@@ -751,6 +751,21 @@ h2{
 .exp-bullets li{font-size:16px;color:var(--muted);padding-left:18px;position:relative}
 .exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:9px;top:3px}
 
+  /* ── CERTIFICATIONS ── */
+.cert-badge-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding:24px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  width:fit-content;
+  transition:all 0.2s;
+  position:relative;
+}
+.cert-badge-wrap::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--blue)}
+.cert-badge-wrap:hover{border-color:rgba(0,180,255,0.35);box-shadow:0 12px 36px rgba(0,0,0,0.4)}
+
 /* ── IN PROGRESS ── */
 .project-update-banner {
   display:flex;
@@ -1317,6 +1332,7 @@ nav {
     <li><a href="#about">About</a></li>
     <li><a href="#daily">Daily Activity</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
     <li><a href="#ongoing">In Progress</a></li>
     <li><a href="#virtualinternship">Virtual Internship</a></li>
     <li><a href="#medium">Write-Ups</a></li>
@@ -1450,6 +1466,21 @@ nav {
     </div>
   </div>
 </section>
+  
+  <!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <div class="section-label blue">Certifications</div>
+    <h2>Verified Credentials</h2>
+    <p class="section-subtitle">Industry-recognized certifications validating hands-on cybersecurity skills.</p>
+
+    <div class="cert-badge-wrap fade-in">
+      <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="87a0d98e-8fa1-47a0-a0da-39a72cc7b3e0" data-share-badge-host="https://www.credly.com"></div>
+    </div>
+
+  </div>
+</section>
+<script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
 <!-- CURRENTLY WORKING ON -->
 <section id="ongoing">
